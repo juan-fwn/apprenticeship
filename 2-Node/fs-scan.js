@@ -1,27 +1,20 @@
-const { readdir } = require("fs/promises");
 const fs = require("fs");
 
-const regExp = new RegExp(process.argv.slice(2));
+const regExp = new RegExp(process.argv[2]);
 
-const showFilesRegExp = (path, isDirectoryBool = false) => {
-  try {
-    readdir(path).then((files) => {
-      files.forEach((file) => {
-        const stats =
-          fs.existsSync(isDirectoryBool ? `${path}/${file}` : file) &&
-          fs.statSync(isDirectoryBool ? `${path}/${file}` : file);
-        if (!stats) return;
-        if (stats.isFile() && regExp.test(file)) {
-          console.log(file);
-        }
-        if (stats.isDirectory()) {
-          showFilesRegExp(isDirectoryBool ? `${path}/${file}` : file, true);
-        }
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
+const showFilesRegExp = (path) => {
+  const fileNames = fs.readdirSync(path);
+
+  fileNames.forEach((file) => {
+    const stats = fs.statSync(`${path}/${file}`);
+
+    if (stats.isFile() && regExp.test(file)) {
+      console.log(file);
+    }
+    if (stats.isDirectory()) {
+      showFilesRegExp(`${path}/${file}`);
+    }
+  });
 };
 
 showFilesRegExp(__dirname);
