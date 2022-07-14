@@ -1,8 +1,9 @@
+require("dotenv").config();
 const { Octokit } = require("@octokit/core");
 
 const userName = "juan-fwn";
 const repositoryName = "apprenticeship";
-const token = "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";
+const token = process.env.GITHUB_API_KEY;
 
 const getGitHubAPI = async (URL) => {
   const octokit = new Octokit({

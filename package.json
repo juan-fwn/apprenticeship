@@ -12,6 +12,7 @@
     "lint": "npx eslint **/*.js"
   },
   "dependencies": {
-    "@octokit/core": "^4.0.4"
+    "@octokit/core": "^4.0.4",
+    "dotenv": "^16.0.1"
   }
 }
