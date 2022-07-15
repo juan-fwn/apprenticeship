@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { Octokit } = require("@octokit/core");
 
+const regExp = new RegExp(process.argv[2]);
+
 const userName = "juan-fwn";
 const repositoryName = "apprenticeship";
 const token = process.env.GITHUB_API_KEY;
@@ -15,27 +17,27 @@ const getGitHubAPI = async (URL) => {
   return response;
 };
 
-const getCardsInfo = async (URL) => {
-  const { data: cardInfo = [] } = await getGitHubAPI(URL);
+const getCardInfo = async (URL) => {
+  const { data: cardInfo } = await getGitHubAPI(URL);
 
   return cardInfo.title;
 };
 
 const getCardsByColumn = async (URL) => {
-  const { data: cardsAPI = [] } = await getGitHubAPI(URL);
+  const { data: cardsAPI } = await getGitHubAPI(URL);
 
   const cards = [];
 
   for (const card of cardsAPI) {
-    const cardTitle = await getCardsInfo(card.content_url);
+    const cardTitle = await getCardInfo(card.content_url);
     cards.push(cardTitle);
   }
 
   return cards;
 };
 
-const getColumnsByProyect = async (URL) => {
-  const { data: columnsAPI = [] } = await getGitHubAPI(URL);
+const getColumnsByProject = async (URL) => {
+  const { data: columnsAPI } = await getGitHubAPI(URL);
 
   const columns = [];
 
@@ -44,7 +46,7 @@ const getColumnsByProyect = async (URL) => {
 
     columns.push({
       name: column.name,
-      proyectURL: column.project_url,
+      projectURL: column.project_url,
       cardsURL: column.cards_url,
       cards,
     });
@@ -53,29 +55,33 @@ const getColumnsByProyect = async (URL) => {
   return columns;
 };
 
-const getProyects = async () => {
-  const proyects = [];
+const getProjects = async () => {
+  const projects = [];
 
-  const { data: proyectsAPI = [] } = await getGitHubAPI(
+  const { data: projectsAPI} = await getGitHubAPI(
     `GET /repos/${userName}/${repositoryName}/projects`
   );
 
-  for (const proyect of proyectsAPI) {
-    const columns = await getColumnsByProyect(proyect.columns_url);
+  const filteredProjects = projectsAPI.filter((project) =>
+    regExp.test(project.name)
+  );
 
-    proyects.push({
-      id: proyect.id,
-      name: proyect.name,
-      proyectURL: proyect.url,
-      columnsURL: proyect.columns_url,
+  for (const project of filteredProjects) {
+    const columns = await getColumnsByProject(project.columns_url);
+
+    projects.push({
+      id: project.id,
+      name: project.name,
+      proyectURL: project.url,
+      columnsURL: project.columns_url,
       columns,
     });
   }
 
-  return proyects;
+  return projects;
 };
 
-const showProyects = (projects) => {
+const showProjects = (projects) => {
   projects.forEach((project) => {
     console.log(
       `-----------------------------------------------
@@ -98,9 +104,9 @@ const showProyects = (projects) => {
 };
 
 const main = async () => {
-  const proyects = await getProyects();
+  const projects = await getProjects();
 
-  showProyects(proyects);
+  showProjects(projects);
 };
 
 main();
