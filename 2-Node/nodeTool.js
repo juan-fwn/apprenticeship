@@ -17,7 +17,7 @@ const getGitHubAPI = async (URL) => {
   return response;
 };
 
-const getCardsInfo = async (URL) => {
+const getCardInfo = async (URL) => {
   const { data: cardInfo } = await getGitHubAPI(URL);
 
   return cardInfo.title;
@@ -29,7 +29,7 @@ const getCardsByColumn = async (URL) => {
   const cards = [];
 
   for (const card of cardsAPI) {
-    const cardTitle = await getCardsInfo(card.content_url);
+    const cardTitle = await getCardInfo(card.content_url);
     cards.push(cardTitle);
   }
 
