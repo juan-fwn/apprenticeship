@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { Octokit } = require("@octokit/core");
 
+const regExp = new RegExp(process.argv[2]);
+
 const userName = "juan-fwn";
 const repositoryName = "apprenticeship";
 const token = process.env.GITHUB_API_KEY;
@@ -60,7 +62,11 @@ const getProyects = async () => {
     `GET /repos/${userName}/${repositoryName}/projects`
   );
 
-  for (const proyect of proyectsAPI) {
+  const filteredProyects = proyectsAPI.filter((proyect) =>
+    regExp.test(proyect.name)
+  );
+
+  for (const proyect of filteredProyects) {
     const columns = await getColumnsByProyect(proyect.columns_url);
 
     proyects.push({
