@@ -58,7 +58,7 @@ const getColumnsByProject = async (URL) => {
 const getProjects = async () => {
   const projects = [];
 
-  const { data: projectsAPI = [] } = await getGitHubAPI(
+  const { data: projectsAPI} = await getGitHubAPI(
     `GET /repos/${userName}/${repositoryName}/projects`
   );
 
