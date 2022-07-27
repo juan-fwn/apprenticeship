@@ -11,7 +11,7 @@ function Background({ children, serieBgImage }) {
         zIndex: "-1",
         width: "100vw",
         height: "100%",
-        backgroundRepeat: "no-repeat",
+        // backgroundRepeat: "no-repeat",
       }}
     >
       {children}
