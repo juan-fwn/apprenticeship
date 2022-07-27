@@ -14,9 +14,7 @@ function MovieDetails() {
         <p className="text-white ml-2">Action, Thriller</p>
       </div>
       <div className="flex justify-between mt-8">
-        <p className="w-3/4 text-5xl font-bold text-white">
-          BLACK MIRROR
-        </p>
+        <p className="w-3/4 text-5xl font-bold text-white">BLACK MIRROR</p>
         <div className="border rounded-3xl border-white text-xl w-24 h-8 flex justify-center items-center text-white font-semibold self-end">
           PG 13
         </div>
@@ -32,7 +30,7 @@ function MovieDetails() {
           Quentin Tarantino
         </div>
       </div>
-      <p className="text-white mt-10">
+      <p className="text-white mt-10 w-3/4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
         risus aliquet, imperdiet dolor sit amet, malesuada lectus. Aenean ac
         sapien non dui efficitur fermentum. Vestibulum ante ipsum primis in

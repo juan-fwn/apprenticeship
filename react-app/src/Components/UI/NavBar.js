@@ -28,12 +28,14 @@ function NavBar() {
           <ion-icon name={open ? "close" : "menu"} />
         </button>
         <ul
-          className={`items-center ml-20 justify-around md:z-auto z-[-10] md:flex md:pl-0 pl-9 transition-all duration-500 ease-in absolute ${
-            open ? "top-20 " : "top-[-490px]"
+          className={`items-center ml-20 justify-around md:flex transition-all duration-500 ease-in ${
+            open
+              ? "top-28 absolute md:flex bg-slate-400 md:bg-inherit"
+              : "hidden"
           }`}
         >
           {links.map((link) => (
-            <li key={link.name} className="">
+            <li key={link.name} className={`${open ? "ml-0 p-4" : ""}`}>
               <a
                 href={link.url}
                 className="text-white font-serif text-lg ml-10"
