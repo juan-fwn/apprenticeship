@@ -1,5 +1,5 @@
 import React from "react";
-import HomeScreen from "./Components/HomeScreen/HomeScreen";
+import HomeScreen from "./Components/HomeScreen";
 
 // const API_KEY = "df7ba0e57e5998b3482646f2dded6d32";
 

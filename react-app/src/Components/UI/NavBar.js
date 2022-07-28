@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ChevronDown from "./ChevronDown";
-import SearchIcon from "./SearchIcon";
+import chevronDown from "../../assets/icons/chevronDown.svg";
+import search from "../../assets/icons/search.svg";
 import UserImg from "./UserImg";
 
 const links = [
@@ -43,10 +43,18 @@ function NavBar({ open, setOpen }) {
           ))}
         </ul>
       </div>
-      <div className="flex items-center justify-evenly">
-        <SearchIcon />
+      <div className="flex items-center justify-evenly w-40">
+        <img
+          src={search}
+          alt="search"
+          className="hover:cursor-pointer"
+        />
         <UserImg />
-        <ChevronDown />
+        <img
+          src={chevronDown}
+          alt="chevronDown"
+          className="hover:cursor-pointer"
+        />
       </div>
     </div>
   );

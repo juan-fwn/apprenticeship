@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Video from "../UI/Video";
-import CenterDot from "../UI/CenterDot";
-import Rate from "../UI/Rate";
+import centerDot from "../../assets/icons/centerDot.svg";
+import directorLogo from "../../assets/icons/directorLogo.svg";
+import StarRate from "../UI/StarRate";
 
 function MovieDetails({ openNav }) {
   return (
@@ -15,7 +15,7 @@ function MovieDetails({ openNav }) {
       <div className="flex">
         <p className="text-white mr-2">2019</p>
         <div className="relative top-2.5">
-          <CenterDot />
+          <img src={centerDot} alt="center-dot" />
         </div>
         <p className="text-white ml-2">Action, Thriller</p>
       </div>
@@ -32,13 +32,13 @@ function MovieDetails({ openNav }) {
           2:30h
         </div>
         <div className="sm:ml-14 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
-          <Video />
+          <img src={directorLogo} alt="director-logo" />
         </div>
         <div className="text-white font-semibold text-lg self-center">
           Quentin Tarantino
         </div>
-        <div className="ml-14 self-center">
-          <Rate />
+        <div className="sm:ml-14 mx-auto sm:mt-0 mt-7 sm:mb-0 mb-3 self-center flex justify-center">
+          <StarRate />
         </div>
       </div>
       <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">
