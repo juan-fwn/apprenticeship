@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+
 import ChevronDown from "./ChevronDown";
 import SearchIcon from "./SearchIcon";
 import UserImg from "./UserImg";
@@ -11,9 +13,7 @@ const links = [
   { name: "My List", url: "/" },
 ];
 
-function NavBar() {
-  const [open, setOpen] = useState(false);
-
+function NavBar({ open, setOpen }) {
   return (
     <div className="flex ml-6 mr-6 xl:ml-32 xl:mr-20 pt-14 justify-between">
       <div className="flex">
@@ -25,21 +25,18 @@ function NavBar() {
           onClick={() => setOpen(!open)}
           className="text-3xl absolute left-36 top-16 cursor-pointer md:hidden"
         >
-          <ion-icon name={open ? "close" : "menu"} />
+          <ion-icon name={open ? "close" : "menu"} style={{ color: "white" }} />
         </button>
         <ul
           className={`items-center ml-20 justify-around md:flex transition-all duration-500 ease-in ${
             open
-              ? "top-28 absolute md:flex bg-slate-400 md:bg-inherit"
+              ? "top-24 md:top-12 absolute md:static rounded-md bg-gray-400 bg-opacity-50 md:bg-inherit md:ml-20 ml-36"
               : "hidden"
           }`}
         >
           {links.map((link) => (
-            <li key={link.name} className={`${open ? "ml-0 p-4" : ""}`}>
-              <a
-                href={link.url}
-                className="text-white font-serif text-lg ml-10"
-              >
+            <li key={link.name} className={`ml-10 ${open ? "md:p-0 p-2" : ""}`}>
+              <a href={link.url} className="text-white font-serif text-lg">
                 {link.name}
               </a>
             </li>
@@ -54,5 +51,10 @@ function NavBar() {
     </div>
   );
 }
+
+NavBar.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+};
 
 export default NavBar;

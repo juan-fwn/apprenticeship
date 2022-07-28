@@ -7,13 +7,22 @@ function Rate() {
   const [hoveredRate, setHoveredRate] = useState(null);
 
   return (
-    <div>
-        {/* {posibleRates.map(rate => return (
-            <i key={rate?.toString()} className="fas fa-star" onClick={() => setSelectedRate()}></i>
-        ))} */}
-        span
-    </div>
-  )
+    <>
+      {posibleRates.map((rate) => (
+        <button
+          type="button"
+          aria-label="Star"
+          key={rate?.toString()}
+          className={`ml-1 fas fa-star ${rate <= selectedRate && "in-rate"} ${
+            rate <= hoveredRate && "in-hover"
+          }`}
+          onClick={() => setSelectedRate(rate)}
+          onMouseEnter={() => setHoveredRate(rate)}
+          onMouseLeave={() => setHoveredRate(null)}
+        />
+      ))}
+    </>
+  );
 }
 
 export default Rate;
