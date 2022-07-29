@@ -17,7 +17,7 @@ function NavBar({ open, setOpen }) {
   return (
     <div className="flex ml-6 mr-6 xl:ml-32 xl:mr-20 pt-14 justify-between">
       <div className="flex">
-        <div className="text-white text-4xl font-semibold relative after:content-[''] after:inline-block after:h-2.5 after:w-2.5 after:rounded-full after:bg-blue-700 after:text-6xl after:relative after:bottom-6 after:right-3">
+        <div className="text-white text-4xl font-semibold relative after:content-[''] after:inline-block after:h-2.5 after:w-2.5 after:rounded-full after:bg-blue-700 after:text-6xl after:relative after:bottom-6 after:right-3 font-exo">
           Movy
         </div>
         <button
@@ -36,7 +36,7 @@ function NavBar({ open, setOpen }) {
         >
           {links.map((link) => (
             <li key={link.name} className={`ml-10 ${open ? "md:p-0 p-2" : ""}`}>
-              <a href={link.url} className="text-white font-serif text-lg">
+              <a href={link.url} className="text-white text-lg font-sfProDisplay">
                 {link.name}
               </a>
             </li>
