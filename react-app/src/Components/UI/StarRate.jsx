@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import star from "../../assets/icons/star.svg";
-import halfStar from "../../assets/icons/halfStar.svg";
+import star from "../../assets/star.svg";
+import halfStar from "../../assets/halfStar.svg";
 
 function StarRate({ rate }) {
   return (

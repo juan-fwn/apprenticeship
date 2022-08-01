@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import centerDot from "../../assets/icons/centerDot.svg";
-import directorLogo from "../../assets/icons/directorLogo.svg";
-import addFavorite from "../../assets/icons/addFavorite.svg";
-import watchTrailer from "../../assets/icons/watchTrailer.svg";
-import imbd from "../../assets/icons/imbd.svg";
-import volume from "../../assets/icons/volume.svg";
+import centerDot from "../../assets/centerDot.svg";
+import directorLogo from "../../assets/directorLogo.svg";
+import addFavorite from "../../assets/addFavorite.svg";
+import watchTrailer from "../../assets/watchTrailer.svg";
+import imbd from "../../assets/imbd.svg";
+import volume from "../../assets/volume.svg";
 import StarRate from "../UI/StarRate";
 
 function MovieDetails({ openNav }) {
@@ -51,8 +51,8 @@ function MovieDetails({ openNav }) {
         makers, every episode set in a slightly different reality with different
         characters combating different types of technologies.
       </p>
-      <div className="flex">
-        <div className="flex mt-8 sm:mt-28 items-center flex-col sm:flex-row">
+      <div className="flex sm:flex-row flex-col sm:justify-between mt-8 sm:mt-28">
+        <div className="flex items-center flex-col sm:flex-row">
           <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
             <img src={addFavorite} alt="add-favorite" />
           </div>
@@ -69,7 +69,7 @@ function MovieDetails({ openNav }) {
             <img src={imbd} alt="imbd" />
           </div>
         </div>
-        <div>
+        <div className="self-center sm:mt-0 mt-7">
           <img src={volume} alt="volume" />
         </div>
       </div>

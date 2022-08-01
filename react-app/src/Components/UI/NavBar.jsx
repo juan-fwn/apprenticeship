@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import chevronDown from "../../assets/icons/chevronDown.svg";
-import search from "../../assets/icons/search.svg";
+import movy from "../../assets/movy.svg";
+import chevronDown from "../../assets/chevronDown.svg";
+import search from "../../assets/search.svg";
 import UserImg from "./UserImg";
 
 const links = [
@@ -17,8 +18,8 @@ function NavBar({ open, setOpen }) {
   return (
     <div className="flex ml-6 mr-6 xl:ml-32 xl:mr-20 pt-14 justify-between">
       <div className="flex">
-        <div className="text-white text-4xl font-semibold relative after:content-[''] after:inline-block after:h-2.5 after:w-2.5 after:rounded-full after:bg-blue-700 after:text-6xl after:relative after:bottom-6 after:right-3 font-exo">
-          Movy
+        <div className="">
+          <img src={movy} alt="search" />
         </div>
         <button
           type="button"
@@ -30,13 +31,23 @@ function NavBar({ open, setOpen }) {
         <ul
           className={`items-center ml-20 justify-around md:flex transition-all duration-500 ease-in ${
             open
-              ? "top-24 md:top-12 absolute md:static rounded-md bg-gray-400 bg-opacity-50 md:bg-inherit md:ml-20 ml-36"
+              ? "top-24 md:top-12 absolute md:static rounded-md bg-gray-400 bg-opacity-50 md:bg-inherit md:ml-20 ml-32"
               : "hidden"
           }`}
         >
           {links.map((link) => (
-            <li key={link.name} className={`ml-10 ${open ? "md:p-0 p-2" : ""}`}>
-              <a href={link.url} className="text-white text-lg font-sfProDisplay">
+            <li
+              key={link.name}
+              className={`md:ml-10 mx-auto ${
+                open
+                  ? "md:p-0 py-2 px-4 hover:bg-gray-300 hover:bg-opacity-50 rounded-md"
+                  : ""
+              }`}
+            >
+              <a
+                href={link.url}
+                className="text-white text-lg font-sfProDisplay"
+              >
                 {link.name}
               </a>
             </li>
@@ -44,11 +55,7 @@ function NavBar({ open, setOpen }) {
         </ul>
       </div>
       <div className="flex items-center justify-evenly w-40">
-        <img
-          src={search}
-          alt="search"
-          className="hover:cursor-pointer"
-        />
+        <img src={search} alt="search" className="hover:cursor-pointer" />
         <UserImg />
         <img
           src={chevronDown}

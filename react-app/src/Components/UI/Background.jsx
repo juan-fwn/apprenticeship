@@ -6,12 +6,12 @@ function Background({ children, serieBgImage }) {
     <div
       style={{
         backgroundImage: `url(${serieBgImage})`,
-        objectFit: "cover",
+        width: "100vw",
+        height: "100vh",
+        backgroundSize: "contain",
         position: "absolute",
         zIndex: "-1",
-        width: "100vw",
-        height: "100%",
-        // backgroundRepeat: "no-repeat",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {children}
