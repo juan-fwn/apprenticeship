@@ -24,7 +24,7 @@ function MovieDetails({ openNav }) {
         <p className="text-white ml-2">Action, Thriller</p>
       </div>
       <div className="flex justify-between mt-8 flex-col sm:flex-row">
-        <p className="w-3/4 sm:text-5xl text-4xl font-bold text-white font-sfProDisplay">
+        <p className="w-3/4 sm:text-5xl text-4xl font-bold text-white">
           BLACK MIRROR
         </p>
         <div className="border rounded-3xl border-white sm:text-xl text-base sm:w-24 w-20 h-8 flex justify-center items-center text-white font-semibold sm:self-end self-start sm:mt-0 mt-4">
@@ -38,14 +38,12 @@ function MovieDetails({ openNav }) {
         <div className="sm:ml-14 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
           <img src={directorLogo} alt="director-logo" />
         </div>
-        <div className="text-white text-lg self-center font-sfProDisplay">
-          Quentin Tarantino
-        </div>
+        <div className="text-white text-lg self-center">Quentin Tarantino</div>
         <div className="sm:ml-14 mx-auto sm:mt-0 mt-7 sm:mb-0 mb-3 self-center flex justify-center">
-          <StarRate />
+          <StarRate rate={4.5} />
         </div>
       </div>
-      <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm font-sfProDisplay">
+      <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">
         Set in a world only minutes from our own, &quot;Black Mirror&quot;
         unveils how modern technologies can backfire and be used against their
         makers, every episode set in a slightly different reality with different
@@ -56,13 +54,11 @@ function MovieDetails({ openNav }) {
           <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
             <img src={addFavorite} alt="add-favorite" />
           </div>
-          <div className="text-[#92AAD7] text-lg self-center font-sfProDisplay">
-            Watch Later
-          </div>
+          <div className="text-[#92AAD7] text-lg self-center">Watch Later</div>
           <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
             <img src={watchTrailer} alt="watch-trailer" />
           </div>
-          <div className="text-[#92AAD7] text-lg self-center font-sfProDisplay">
+          <div className="text-[#92AAD7] text-lg self-center">
             Watch Trailer
           </div>
           <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
