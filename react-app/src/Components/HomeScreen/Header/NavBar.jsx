@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import movy from "../../assets/movy.svg";
+import movy from "../../../assets/movy.svg";
 
 const links = [
   { name: "Home", url: "/" },
