@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  images: null,
+  images: [],
 };
 
 const configurationSlice = createSlice({
