@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   images: null,
-  changeKeys: null,
 };
 
 const configurationSlice = createSlice({
@@ -17,4 +16,4 @@ const configurationSlice = createSlice({
 
 export const configurationActions = configurationSlice.actions;
 
-export default configurationSlice.reducer;
+export default configurationSlice;

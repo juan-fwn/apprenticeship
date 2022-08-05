@@ -17,5 +17,13 @@
     "quotes": "off",
     "react/jsx-filename-extension": "off"
   },
+  "overrides": [
+    {
+      "files": ["./src/store/slices/*.js"],
+      "rules": {
+        "no-param-reassign": "off"
+      }
+    }
+  ],
   "root": true
 }

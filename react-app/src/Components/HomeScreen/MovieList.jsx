@@ -1,16 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 function MovieList({ listName, movies }) {
+  const {
+    images: { secure_base_url: secureBaseUrl = "", logo_sizes: backdropSizes = [] },
+  } = useSelector((state) => state.configuration);
+
   return (
-    <div className="m-12">
+    <>
       <div className="text-white font-semibold text-lg">{listName}</div>
-      <div>
+      <div className="flex mt-6">
         {movies.map((movie) => (
-          <img src={movie.poster_path} alt={movie.title} />
+          <div key={movie.poster_path}>
+            <img
+              src={`${secureBaseUrl}${backdropSizes[3]}${movie.poster_path}`}
+              alt={movie.title}
+            />
+          </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Background from "../UI/Background";
 import MovieDetails from "./MovieDetails";
 import Header from "./Header";
-
 import MovieList from "./MovieList";
 
-// require("dotenv").config();
-
-// const token = process.env.API_KEY;
-const token = "df7ba0e57e5998b3482646f2dded6d32";
-
-console.log({ token });
+import { homeScreenActions } from "../../store/slices/homeScreen";
+import useHttp from "../../hooks/use-http";
 
 function HomeScreen() {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
-  const [movies, setMovies] = useState([]);
+  const { movies = [] } = useSelector((state) => state.homeScreen);
+
+  const { sendRequest } = useHttp();
 
   useEffect(() => {
-    const getMovies = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=${token}`,
-      );
-
-      const json = await response.json();
-
-      setMovies(json.results);
+    const requestConfig = {
+      url: "https://api.themoviedb.org/3/trending/all/day",
     };
 
-    getMovies();
+    const getMovies = (json) => {
+      dispatch(homeScreenActions.setMovies(json.results));
+    };
+
+    sendRequest(requestConfig, getMovies);
   }, []);
 
   return (
@@ -36,7 +34,9 @@ function HomeScreen() {
       <Background serieBgImage="https://www.noticierovallarta.com/wp-content/uploads/2022/05/Buenas-noticias-para-los-fanaticos-de-la-ciencia-ficcion-distopica.jpg" />
       <Header open={open} setOpen={setOpen} />
       <MovieDetails openNav={open} />
-      <MovieList listName="Popular on Movy" movies={movies} />
+      <div className="m-12">
+        <MovieList listName="Popular on Movy" movies={movies} />
+      </div>
     </>
   );
 }
