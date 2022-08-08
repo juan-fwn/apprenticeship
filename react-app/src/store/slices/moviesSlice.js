@@ -4,8 +4,8 @@ const initialState = {
   movies: [],
 };
 
-const homeScreenSlice = createSlice({
-  name: "homeScreen",
+const moviesSlice = createSlice({
+  name: "movies",
   initialState,
   reducers: {
     setMovies(state, action) {
@@ -14,6 +14,6 @@ const homeScreenSlice = createSlice({
   },
 });
 
-export const homeScreenActions = homeScreenSlice.actions;
+export const moviesSliceActions = moviesSlice.actions;
 
-export default homeScreenSlice;
+export default moviesSlice;

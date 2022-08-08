@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
+import styles from "./MovieList.module.css";
+
 import Movie from "./Movie";
 
 function MovieList({ listName, movies }) {
@@ -13,11 +15,11 @@ function MovieList({ listName, movies }) {
   } = useSelector((state) => state.configuration);
 
   return (
-    <>
+    <div className={`${styles.mediaScroller} ${styles.snapsInline}`}>
       <div className="text-white font-semibold text-lg">{listName}</div>
-      <div className="mt-6 inline-flex flex-row">
+      <div className="pt-6 inline-flex flex-row">
         {movies.map((movie) => (
-          <div key={movie.poster_path} className="h-44 w-80 m-1">
+          <div key={movie.poster_path} className="h-[165px] w-[301px] m-1">
             <Movie
               movie={movie}
               baseUrl={secureBaseUrl}
@@ -26,7 +28,7 @@ function MovieList({ listName, movies }) {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

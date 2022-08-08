@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import styles from "./Movie.module.css";
+
 function Movie({ movie, baseUrl, fileSize }) {
   return (
     <img
       src={`${baseUrl}${fileSize}${movie.poster_path}`}
       alt={movie.title}
-      className="w-full h-full object-cover"
+      className={styles.poster}
     />
   );
 }

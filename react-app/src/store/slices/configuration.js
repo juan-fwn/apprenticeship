@@ -8,7 +8,7 @@ const configurationSlice = createSlice({
   name: "configuration",
   initialState,
   reducers: {
-    setImages(state, action) {
+    setImagesConfiguration(state, action) {
       state.images = action.payload;
     },
   },

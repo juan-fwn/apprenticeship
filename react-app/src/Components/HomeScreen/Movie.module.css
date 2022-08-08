@@ -1,0 +1,11 @@
+.poster {
+  object-fit: cover;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.poster:hover {
+  width: 553px;
+  height: 303px;
+  transition: ease-in-out 1s;
+}

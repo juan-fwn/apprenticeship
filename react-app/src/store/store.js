@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import configurationSlice from "./slices/configuration";
-import homeScreenSlice from "./slices/homeScreen";
+import moviesSlice from "./slices/moviesSlice";
 
 const store = configureStore({
   reducer: {
     configuration: configurationSlice.reducer,
-    homeScreen: homeScreenSlice.reducer,
+    movies: moviesSlice.reducer,
   },
 });
 

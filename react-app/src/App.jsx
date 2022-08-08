@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import HomeScreen from "./Components/HomeScreen";
-import useHttp from "./hooks/use-http";
+import useHttp from "./hooks/useHttp";
 import { configurationActions } from "./store/slices/configuration";
 
 function App() {
@@ -12,11 +12,11 @@ function App() {
 
   useEffect(() => {
     const requestConfig = {
-      url: `https://api.themoviedb.org/3/configuration`,
+      path: `/configuration`,
     };
 
     const getImages = (json) => {
-      dispatch(configurationActions.setImages(json.images));
+      dispatch(configurationActions.setImagesConfiguration(json.images));
     };
 
     sendRequest(requestConfig, getImages);
