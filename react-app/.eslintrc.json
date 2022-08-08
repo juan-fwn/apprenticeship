@@ -15,7 +15,9 @@
   "rules": {
     "no-console": "off",
     "quotes": "off",
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "linebreak-style": "off",
+    "react/function-component-definition": "off"
   },
   "overrides": [
     {
