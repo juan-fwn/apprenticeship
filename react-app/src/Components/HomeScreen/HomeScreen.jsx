@@ -14,8 +14,22 @@ function HomeScreen() {
 
   const [open, setOpen] = useState(false);
   const { movies = [] } = useSelector((state) => state.movies);
+  const {
+    images: {
+      secure_base_url: secureBaseUrl = "",
+      backdrop_sizes: backdropSizes = [],
+    },
+  } = useSelector((state) => state.configuration);
 
   const { sendRequest } = useHttp();
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  const randomMovie = movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
+
+  console.log({ randomMovie });
 
   useEffect(() => {
     const requestConfig = {
@@ -31,9 +45,9 @@ function HomeScreen() {
 
   return (
     <>
-      <Background serieBgImage="https://www.noticierovallarta.com/wp-content/uploads/2022/05/Buenas-noticias-para-los-fanaticos-de-la-ciencia-ficcion-distopica.jpg" />
+      <Background serieBgImage={`${secureBaseUrl}${backdropSizes[backdropSizes.length - 1]}${randomMovie.backdrop_path}`} />
       <Header open={open} setOpen={setOpen} />
-      <MovieDetails openNav={open} />
+      <MovieDetails openNav={open} selectedMovie={randomMovie} />
       <MovieList listName="Popular on Movy" movies={movies} />
     </>
   );

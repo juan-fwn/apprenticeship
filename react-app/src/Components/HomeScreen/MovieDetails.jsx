@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 
 import centerDot from "../../assets/centerDot.svg";
 import directorLogo from "../../assets/directorLogo.svg";
@@ -10,17 +9,8 @@ import imbd from "../../assets/imbd.svg";
 import volume from "../../assets/volume.svg";
 import StarRate from "../UI/StarRate";
 
-function MovieDetails({ openNav }) {
-  const { movies } = useSelector((state) => state.movies);
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
-
-  const selectedMovie = movies[getRandomInt(movies.length)];
-
-  console.log(selectedMovie);
-
+function MovieDetails({ openNav, selectedMovie }) {
+  console.log({ selectedMovie });
   return (
     <div
       className={`mx-16 md:mx-36 xl:mx-64 ${
@@ -36,7 +26,7 @@ function MovieDetails({ openNav }) {
       </div>
       <div className="flex justify-between mt-8 flex-col sm:flex-row">
         <p className="w-3/4 sm:text-5xl text-4xl font-bold text-white">
-          {selectedMovie.name}
+          {selectedMovie?.original_title}
         </p>
         <div className="border rounded-3xl border-white sm:text-xl text-base sm:w-24 w-20 h-8 flex justify-center items-center text-white font-semibold sm:self-end self-start sm:mt-0 mt-4">
           PG 13
@@ -55,7 +45,7 @@ function MovieDetails({ openNav }) {
         </div>
       </div>
       <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">
-        {selectedMovie.overview}
+        {selectedMovie?.overview}
       </p>
       <div className="flex sm:flex-row flex-col sm:justify-between mt-8 sm:mt-28">
         <div className="flex items-center flex-col sm:flex-row">
@@ -83,6 +73,7 @@ function MovieDetails({ openNav }) {
 
 MovieDetails.propTypes = {
   openNav: PropTypes.bool.isRequired,
+  selectedMovie: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default MovieDetails;

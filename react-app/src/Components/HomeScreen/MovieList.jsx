@@ -15,6 +15,7 @@ function MovieList({ listName, movies }) {
   } = useSelector((state) => state.configuration);
 
   const onWheelHorizontalScrolling = (e) => {
+    e.preventDefault();
     const mediaScroller = e.target.parentElement.parentElement.parentElement;
     if (e.deltaY > 0) mediaScroller.scrollLeft += 100;
     else mediaScroller.scrollLeft -= 100;
@@ -23,7 +24,7 @@ function MovieList({ listName, movies }) {
   return (
     <div className={`${styles.mediaScroller}`} onWheel={onWheelHorizontalScrolling}>
       <div className="text-white font-semibold text-lg">{listName}</div>
-      <div className="pt-20 inline-flex flex-row h-96">
+      <div className="pt-8 inline-flex flex-row h-96">
         {movies.map((movie) => (
           <div
             key={movie.poster_path}
