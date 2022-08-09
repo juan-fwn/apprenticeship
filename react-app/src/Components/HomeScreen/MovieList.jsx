@@ -14,12 +14,21 @@ function MovieList({ listName, movies }) {
     },
   } = useSelector((state) => state.configuration);
 
+  const onWheelHorizontalScrolling = (e) => {
+    const mediaScroller = e.target.parentElement.parentElement.parentElement;
+    if (e.deltaY > 0) mediaScroller.scrollLeft += 100;
+    else mediaScroller.scrollLeft -= 100;
+  };
+
   return (
-    <div className={`${styles.mediaScroller} ${styles.snapsInline}`}>
+    <div className={`${styles.mediaScroller}`} onWheel={onWheelHorizontalScrolling}>
       <div className="text-white font-semibold text-lg">{listName}</div>
-      <div className="pt-6 inline-flex flex-row">
+      <div className="pt-20 inline-flex flex-row h-96">
         {movies.map((movie) => (
-          <div key={movie.poster_path} className="h-[165px] w-[301px] m-1">
+          <div
+            key={movie.poster_path}
+            className="sm:h-[165px] sm:w-[301px] h-[82px] w-[150px] m-1"
+          >
             <Movie
               movie={movie}
               baseUrl={secureBaseUrl}

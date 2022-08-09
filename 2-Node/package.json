@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@octokit/core": "^4.0.4",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "eslint": "^8.21.0"
   }
 }

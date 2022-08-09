@@ -1,13 +1,10 @@
 .mediaScroller {
   margin: 3rem;
-  /* overflow-x: auto;
-  overscroll-behavior-inline: contain; */
+  margin-top: 8rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
 }
 
-/* .snapsInline {
-  scroll-snap-type: inline mandatory;
+.mediaScroller::-webkit-scrollbar {
+  width: 0;
 }
-
-.snapsInline > * {
-  scroll-snap-align: start;
-} */
