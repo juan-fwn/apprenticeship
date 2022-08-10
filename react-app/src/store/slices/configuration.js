@@ -11,6 +11,9 @@ const configurationSlice = createSlice({
     setImagesConfiguration(state, action) {
       state.images = action.payload;
     },
+    setGenresList(state, action) {
+      state.genres = action.payload;
+    },
   },
 });
 

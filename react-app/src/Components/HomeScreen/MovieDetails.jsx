@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 
 import centerDot from "../../assets/centerDot.svg";
 import directorLogo from "../../assets/directorLogo.svg";
-import addFavorite from "../../assets/addFavorite.svg";
+import { ReactComponent as AddFavorite } from "../../assets/addFavorite.svg";
 import watchTrailer from "../../assets/watchTrailer.svg";
 import imbd from "../../assets/imbd.svg";
 import volume from "../../assets/volume.svg";
 import StarRate from "../UI/StarRate";
 
 function MovieDetails({ openNav, selectedMovie }) {
-  console.log({ selectedMovie });
   return (
     <div
       className={`mx-16 md:mx-36 xl:mx-64 ${
@@ -50,7 +49,7 @@ function MovieDetails({ openNav, selectedMovie }) {
       <div className="flex sm:flex-row flex-col sm:justify-between mt-8 sm:mt-28">
         <div className="flex items-center flex-col sm:flex-row">
           <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
-            <img src={addFavorite} alt="add-favorite" />
+            <AddFavorite fill="#92AAD7" />
           </div>
           <div className="text-[#92AAD7] text-lg self-center">Watch Later</div>
           <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">

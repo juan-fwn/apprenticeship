@@ -29,8 +29,6 @@ function HomeScreen() {
 
   const randomMovie = movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
 
-  console.log({ randomMovie });
-
   useEffect(() => {
     const requestConfig = {
       path: "/trending/all/day",

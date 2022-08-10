@@ -22,6 +22,18 @@ function App() {
     sendRequest(requestConfig, getImages);
   }, []);
 
+  useEffect(() => {
+    const requestConfig = {
+      path: `/genre/movie/list`,
+    };
+
+    const getGenres = (json) => {
+      dispatch(configurationActions.setGenresList(json.genres));
+    };
+
+    sendRequest(requestConfig, getGenres);
+  }, []);
+
   return <HomeScreen />;
 }
 
