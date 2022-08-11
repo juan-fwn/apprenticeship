@@ -1,40 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 
 import styles from "./MovieList.module.css";
 
 import Movie from "./Movie";
 
-function MovieList({ listName, movies }) {
-  const {
-    images: {
-      secure_base_url: secureBaseUrl = "",
-      backdrop_sizes: backdropSizes = [],
-    },
-  } = useSelector((state) => state.configuration);
+function MovieList({
+  listName,
+  movies,
+  baseUrl,
+  backdropSizes,
+}) {
+  // const onWheelHorizontalScrolling = (e) => {
+  //   // e.preventDefault();
+  //   let element = e.target;
+  //   let foundScroller = false;
 
-  const onWheelHorizontalScrolling = (e) => {
-    // e.preventDefault();
-    let element = e.target;
-    let foundScroller = false;
+  //   while (element && !foundScroller) {
 
-    while (element && !foundScroller) {
-      if (typeof element.className === "string" && element.className.indexOf("mediaScroller") !== -1) {
-        foundScroller = true;
-      } else {
-        element = element.parentElement;
-      }
-    }
+  //       foundScroller = true;
+  //     } else {
+  //       element = element.parentElement;
+  //     }
+  //   }
 
-    if (e.deltaY > 0) element.scrollLeft += 100;
-    else element.scrollLeft -= 100;
-  };
+  //   if (e.deltaX > 25) element.scrollLeft += 100;
+  //   else element.scrollLeft -= 100;
+  // };
 
   return (
     <div
       className={`${styles.mediaScroller}`}
-      onWheel={onWheelHorizontalScrolling}
+      // onWheel={onWheelHorizontalScrolling}
     >
       <div className="text-white font-semibold text-lg">{listName}</div>
       <div className="pt-8 inline-flex flex-row h-96">
@@ -45,10 +42,10 @@ function MovieList({ listName, movies }) {
           >
             <Movie
               movie={movie}
-              baseUrl={secureBaseUrl}
+              baseUrl={baseUrl}
               fileSize={
                 backdropSizes
-                  ? backdropSizes[backdropSizes.length - 1]
+                  ? backdropSizes.at(-1)
                   : "original"
               }
             />
@@ -62,6 +59,8 @@ function MovieList({ listName, movies }) {
 MovieList.propTypes = {
   listName: PropTypes.string.isRequired,
   movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  baseUrl: PropTypes.string.isRequired,
+  backdropSizes: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MovieList;

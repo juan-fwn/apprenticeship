@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import HomeScreen from "./Components/HomeScreen";
-import useHttp from "./hooks/useHttp";
+import useRequest from "./hooks/useRequest";
 import { configurationActions } from "./store/slices/configuration";
 
 function App() {
   const dispatch = useDispatch();
-  // const { isLoading, error, sendRequest } = useHttp();
-  const { sendRequest } = useHttp();
+
+  const { sendRequest } = useRequest();
 
   useEffect(() => {
     const requestConfig = {
@@ -16,7 +16,7 @@ function App() {
     };
 
     const getImages = (json) => {
-      dispatch(configurationActions.setImagesConfiguration(json.images));
+      dispatch(configurationActions.setImageSettings(json.images));
     };
 
     sendRequest(requestConfig, getImages);

@@ -1,21 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  images: [],
+  imageSettings: {},
 };
 
 const configurationSlice = createSlice({
   name: "configuration",
   initialState,
   reducers: {
-    setImagesConfiguration(state, action) {
-      state.images = action.payload;
-    },
-    setGenresList(state, action) {
-      state.genres = action.payload;
+    setImageSettings(state, action) {
+      state.imageSettings = action.payload;
     },
   },
 });
+
+export const selectors = {
+  getImageSettings: (state) => state.configuration.imageSettings,
+};
 
 export const configurationActions = configurationSlice.actions;
 
