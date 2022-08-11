@@ -25,7 +25,9 @@ function MovieDetails({ openNav, selectedMovie }) {
       </div>
       <div className="flex justify-between mt-8 flex-col sm:flex-row">
         <p className="w-3/4 sm:text-5xl text-4xl font-bold text-white">
-          {selectedMovie?.original_title}
+          {selectedMovie?.original_title?.length > 0
+            ? selectedMovie.original_title
+            : selectedMovie.name}
         </p>
         <div className="border rounded-3xl border-white sm:text-xl text-base sm:w-24 w-20 h-8 flex justify-center items-center text-white font-semibold sm:self-end self-start sm:mt-0 mt-4">
           PG 13
@@ -40,7 +42,7 @@ function MovieDetails({ openNav, selectedMovie }) {
         </div>
         <div className="text-white text-lg self-center">Quentin Tarantino</div>
         <div className="sm:ml-14 mx-auto sm:mt-0 mt-7 sm:mb-0 mb-3 self-center flex justify-center">
-          <StarRate rate={4.5} />
+          <StarRate rate={selectedMovie?.vote_average} />
         </div>
       </div>
       <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">
