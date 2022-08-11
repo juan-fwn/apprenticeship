@@ -23,8 +23,29 @@
   height: 100%;
   opacity: 0;
   padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .image-overlay:hover {
   opacity: 1;
+}
+
+.movie-title {
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  padding-top: 1rem;
+  max-width: 18rem;
+  font-size: 1.5rem;
+}
+
+.cut-text {
+  color: white;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 12rem;
 }

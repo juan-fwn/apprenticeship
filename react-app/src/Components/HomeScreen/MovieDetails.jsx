@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import centerDot from "../../assets/centerDot.svg";
 import directorLogo from "../../assets/directorLogo.svg";
@@ -10,6 +11,18 @@ import volume from "../../assets/volume.svg";
 import StarRate from "../UI/StarRate";
 
 function MovieDetails({ openNav, selectedMovie }) {
+  const { genres = [] } = useSelector((state) => state.configuration);
+
+  const movieYear = new Date(
+    selectedMovie?.release_date || selectedMovie?.first_air_date,
+  ).getFullYear();
+
+  const genreList = selectedMovie?.genre_ids
+    ?.filter((id) => genres.some((genre) => genre.id === id))
+    .map((genreId) => genres.find((genre) => genre.id === genreId)?.name);
+
+  const genrePlainText = genreList?.join(", ");
+
   return (
     <div
       className={`mx-16 md:mx-36 xl:mx-64 ${
@@ -17,11 +30,13 @@ function MovieDetails({ openNav, selectedMovie }) {
       } transition-all duration-200 ease-in`}
     >
       <div className="flex">
-        <p className="text-white mr-2">2019</p>
+        <p className="text-white mr-2">{movieYear}</p>
         <div className="relative top-2.5">
           <img src={centerDot} alt="center-dot" />
         </div>
-        <p className="text-white ml-2">Action, Thriller</p>
+        <div className="ml-2">
+          <p className="text-white">{genrePlainText}</p>
+        </div>
       </div>
       <div className="flex justify-between mt-8 flex-col sm:flex-row">
         <p className="w-3/4 sm:text-5xl text-4xl font-bold text-white">
