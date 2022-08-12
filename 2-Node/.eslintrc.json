@@ -9,6 +9,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": [
+    "./1-JavaScript/*.js",
+    "./1-JavaScript/**/*.js",
+    "1-JavaScript/*.js",
+    "1-JavaScript/**/*.js"
+  ],
   "rules": {
     "no-console": "off",
     "no-restricted-syntax": "off",
