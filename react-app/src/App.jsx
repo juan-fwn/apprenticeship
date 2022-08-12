@@ -8,7 +8,7 @@ import { moviesActions } from "./store/slices/movies";
 
 function App() {
   const dispatch = useDispatch();
-  
+
   const { sendRequest } = useRequest();
 
   useEffect(() => {
