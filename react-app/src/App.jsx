@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import HomeScreen from "./Components/HomeScreen";
-import useHttp from "./hooks/useHttp";
+import useRequest from "./hooks/useRequest";
 import { configurationActions } from "./store/slices/configuration";
+import { moviesActions } from "./store/slices/movies";
 
 function App() {
   const dispatch = useDispatch();
   // const { isLoading, error, sendRequest } = useHttp();
-  const { sendRequest } = useHttp();
+  const { sendRequest } = useRequest();
 
   useEffect(() => {
     const requestConfig = {
@@ -16,7 +17,7 @@ function App() {
     };
 
     const getImages = (json) => {
-      dispatch(configurationActions.setImagesConfiguration(json.images));
+      dispatch(configurationActions.setImagesSettings(json.images));
     };
 
     sendRequest(requestConfig, getImages);
@@ -28,7 +29,7 @@ function App() {
     };
 
     const getGenres = (json) => {
-      dispatch(configurationActions.setGenresList(json.genres));
+      dispatch(moviesActions.setGenreList(json.genres));
     };
 
     sendRequest(requestConfig, getGenres);

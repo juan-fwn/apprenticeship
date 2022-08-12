@@ -9,8 +9,10 @@ import { ReactComponent as Share } from "../../assets/share.svg";
 import play from "../../assets/play.svg";
 import StarRate from "../UI/StarRate";
 
+import { selectors } from "../../store/slices/movies";
+
 function Movie({ movie, baseUrl, fileSize }) {
-  const { genres = [] } = useSelector((state) => state.configuration);
+  const genres = useSelector(selectors.getGenres);
 
   const genreList = movie?.genre_ids
     ?.filter((id) => genres.some((genre) => genre.id === id))

@@ -10,8 +10,10 @@ import imbd from "../../assets/imbd.svg";
 import volume from "../../assets/volume.svg";
 import StarRate from "../UI/StarRate";
 
+import { selectors } from "../../store/slices/movies";
+
 function MovieDetails({ openNav, selectedMovie }) {
-  const { genres = [] } = useSelector((state) => state.configuration);
+  const genres = useSelector(selectors.getGenres);
 
   const movieYear = new Date(
     selectedMovie?.release_date || selectedMovie?.first_air_date,
@@ -20,6 +22,10 @@ function MovieDetails({ openNav, selectedMovie }) {
   const genreList = selectedMovie?.genre_ids
     ?.filter((id) => genres.some((genre) => genre.id === id))
     .map((genreId) => genres.find((genre) => genre.id === genreId)?.name);
+
+  console.log({ genres });
+  console.log({ selectedMovie });
+  console.log({ genreList });
 
   const genrePlainText = genreList?.join(", ");
 
@@ -57,7 +63,7 @@ function MovieDetails({ openNav, selectedMovie }) {
         </div>
         <div className="text-white text-lg self-center">Quentin Tarantino</div>
         <div className="sm:ml-14 mx-auto sm:mt-0 mt-7 sm:mb-0 mb-3 self-center flex justify-center">
-          <StarRate rate={selectedMovie?.vote_average} />
+          <StarRate rate={selectedMovie?.vote_average} size="normal" />
         </div>
       </div>
       <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">

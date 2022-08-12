@@ -4,7 +4,7 @@ const token = "df7ba0e57e5998b3482646f2dded6d32";
 
 const baseUrl = "https://api.themoviedb.org/3";
 
-const useHttp = () => {
+const useRequest = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -16,9 +16,6 @@ const useHttp = () => {
         method: requestConfig.method ? requestConfig.method : "GET",
         headers: requestConfig.headers ? requestConfig.headers : {},
         body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
       });
 
       if (!response.ok) {
@@ -36,4 +33,4 @@ const useHttp = () => {
   return { isLoading, error, sendRequest };
 };
 
-export default useHttp;
+export default useRequest;

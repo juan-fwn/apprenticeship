@@ -6,22 +6,23 @@ import MovieDetails from "./MovieDetails";
 import Header from "./Header";
 import MovieList from "./MovieList";
 
-import { moviesSliceActions } from "../../store/slices/moviesSlice";
-import useHttp from "../../hooks/useHttp";
+import { selectors as configSelectors } from "../../store/slices/configuration";
+import { moviesActions, selectors } from "../../store/slices/movies";
+import useRequest from "../../hooks/useRequest";
 
 function HomeScreen() {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
-  const { movies = [] } = useSelector((state) => state.movies);
-  const {
-    images: {
-      secure_base_url: secureBaseUrl = "",
-      backdrop_sizes: backdropSizes = [],
-    },
-  } = useSelector((state) => state.configuration);
+  const movies = useSelector(selectors.getMovies);
 
-  const { sendRequest } = useHttp();
+  const imageSettings = useSelector(configSelectors.getImageSettings);
+  const {
+    secure_base_url: secureBaseUrl = "",
+    backdrop_sizes: backdropSizes = [],
+  } = imageSettings;
+
+  const { sendRequest } = useRequest();
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -35,7 +36,7 @@ function HomeScreen() {
     };
 
     const getMovies = (json) => {
-      dispatch(moviesSliceActions.setMovies(json.results));
+      dispatch(moviesActions.setMovieList(json.results));
     };
 
     sendRequest(requestConfig, getMovies);
@@ -43,10 +44,19 @@ function HomeScreen() {
 
   return (
     <>
-      <Background serieBgImage={`${secureBaseUrl}${backdropSizes[backdropSizes.length - 1]}${randomMovie.backdrop_path}`} />
+      <Background
+        serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
+          randomMovie.backdrop_path
+        }`}
+      />
       <Header open={open} setOpen={setOpen} />
       <MovieDetails openNav={open} selectedMovie={randomMovie} />
-      <MovieList listName="Popular on Movy" movies={movies} />
+      <MovieList
+        listName="Popular on Movy"
+        movies={movies}
+        baseUrl={secureBaseUrl}
+        backdropSizes={backdropSizes}
+      />
     </>
   );
 }
