@@ -23,10 +23,6 @@ function MovieDetails({ openNav, selectedMovie }) {
     ?.filter((id) => genres.some((genre) => genre.id === id))
     .map((genreId) => genres.find((genre) => genre.id === genreId)?.name);
 
-  console.log({ genres });
-  console.log({ selectedMovie });
-  console.log({ genreList });
-
   const genrePlainText = genreList?.join(", ");
 
   return (
