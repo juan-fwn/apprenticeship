@@ -1,5 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
 
 import chevronDown from "../../../assets/chevronDown.svg";
 import search from "../../../assets/search.svg";
@@ -21,10 +20,5 @@ function UserMenu() {
     </div>
   );
 }
-
-// UserMenu.propTypes = {
-//   open: PropTypes.bool.isRequired,
-//   setOpen: PropTypes.func.isRequired,
-// };
 
 export default UserMenu;
