@@ -5,19 +5,37 @@ import star from "../../assets/star.svg";
 import halfStar from "../../assets/halfStar.svg";
 
 function StarRate({ rate, size }) {
-  const halfRate = rate / 2;
+  const starRate = rate / 2;
+  const fullStars = Math.floor(starRate);
+
+  const starsArray = [];
+  for (let i = 0; i <= fullStars; i += 1) {
+    starsArray.push(i);
+  }
+
+  const lastStar = starRate % 1 >= 0.25;
+
+  function getLastStar() {
+    return starRate % 1 >= 0.75 ? star : halfStar;
+  }
 
   return (
     <>
-      {halfRate >= 1 && <img src={star} alt="Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate > 1 && halfRate < 2 && <img src={halfStar} alt="Half Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate >= 2 && <img src={star} alt="Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate > 2 && halfRate < 3 && <img src={halfStar} alt="Half Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate >= 3 && <img src={star} alt="Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate > 3 && halfRate < 4 && <img src={halfStar} alt="Half Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate >= 4 && <img src={star} alt="Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate > 4 && halfRate < 5 && <img src={halfStar} alt="Half Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
-      {halfRate >= 5 && <img src={star} alt="Star" className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`} />}
+      {starsArray.map((fullStar) => (
+        <img
+          key={fullStar}
+          src={star}
+          alt="Star"
+          className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`}
+        />
+      ))}
+      {lastStar && (
+        <img
+          src={getLastStar()}
+          alt="Star"
+          className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`}
+        />
+      )}
     </>
   );
 }

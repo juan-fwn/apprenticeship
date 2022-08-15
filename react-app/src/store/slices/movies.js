@@ -10,10 +10,10 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     setMovieList(state, action) {
-      state.movieList = [...action.payload];
+      state.movieList = action.payload;
     },
     setGenreList(state, action) {
-      state.genreList = [...action.payload];
+      state.genreList = action.payload;
     },
   },
 });

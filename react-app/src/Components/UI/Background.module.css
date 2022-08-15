@@ -50,7 +50,14 @@
 @media (max-width: 640px) {
   .shadow,
   .background {
-    top: 8rem;
     min-height: 23rem;
+  }
+
+  .home {
+    top: 8rem;
+  }
+
+  .trailer {
+    top: 117rem;
   }
 }

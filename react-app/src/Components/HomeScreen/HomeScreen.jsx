@@ -50,6 +50,7 @@ function HomeScreen() {
         serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
           randomMovie.backdrop_path
         }`}
+        type="home"
       />
       <Header open={open} setOpen={setOpen} />
       <MovieDetails openNav={open} selectedMovie={randomMovie} />
@@ -60,6 +61,7 @@ function HomeScreen() {
         backdropSizes={backdropSizes}
       />
       <Trailer
+        movie={randomMovieTrailer}
         serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
           randomMovieTrailer.backdrop_path
         }`}
