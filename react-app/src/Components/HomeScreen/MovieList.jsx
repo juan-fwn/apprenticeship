@@ -13,11 +13,11 @@ function MovieList({
       className={`${styles.mediaScroller}`}
     >
       <div className="text-white font-semibold text-lg">{listName}</div>
-      <div className="pt-8 inline-flex flex-row h-96">
+      <div className="pt-8 inline-flex flex-row h-60">
         {movies.map((movie, index) => (
           <div
             key={movie.poster_path}
-            className={`sm:h-[165px] sm:w-[301px] h-[82px] w-[150px] m-1 ${index === movies.length - 1 ? "mr-20" : ""}`}
+            className={`h-[165px] w-[301px] m-1 ${index === movies.length - 1 ? "mr-20" : ""}`}
           >
             <Movie
               movie={movie}

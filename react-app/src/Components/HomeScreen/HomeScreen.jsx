@@ -5,6 +5,7 @@ import Background from "../UI/Background";
 import MovieDetails from "./MovieDetails";
 import Header from "./Header";
 import MovieList from "./MovieList";
+import Trailer from "./Trailer";
 
 import { selectors as configSelectors } from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
@@ -29,6 +30,7 @@ function HomeScreen() {
   }
 
   const randomMovie = movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
+  const randomMovieTrailer = movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
 
   useEffect(() => {
     const requestConfig = {
@@ -56,6 +58,11 @@ function HomeScreen() {
         movies={movies}
         baseUrl={secureBaseUrl}
         backdropSizes={backdropSizes}
+      />
+      <Trailer
+        serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
+          randomMovieTrailer.backdrop_path
+        }`}
       />
     </>
   );
