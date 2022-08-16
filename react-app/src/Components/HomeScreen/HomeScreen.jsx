@@ -5,7 +5,7 @@ import Background from "../UI/Background";
 import MovieDetails from "./MovieDetails";
 import Header from "./Header";
 import MovieList from "./MovieList";
-import Trailer from "./Trailer";
+import TrailerSection from "./TrailerSection";
 
 import { selectors as configSelectors } from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
@@ -60,7 +60,7 @@ function HomeScreen() {
         baseUrl={secureBaseUrl}
         backdropSizes={backdropSizes}
       />
-      <Trailer
+      <TrailerSection
         movie={randomMovieTrailer}
         serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
           randomMovieTrailer.backdrop_path

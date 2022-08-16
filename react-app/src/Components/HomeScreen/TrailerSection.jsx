@@ -1,26 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import styles from "./Trailer.module.css";
+import styles from "./TrailerSection.module.css";
 
 import { ReactComponent as AddFavorite } from "../../assets/addFavorite.svg";
 import Background from "../UI/Background";
 import StarRate from "../UI/StarRate";
 import imbd from "../../assets/imbd.svg";
 
-function Trailer({ serieBgImage, movie }) {
+import useRequest from "../../hooks/useRequest";
+
+function TrailerSection({ serieBgImage, movie }) {
+  const [trailerUrl, setTrailerUrl] = useState("");
+
+  const { sendRequest } = useRequest();
+
+  useEffect(() => {
+    if (Object.keys(movie).length) {
+      const requestConfig = {
+        path: `/movie/${movie?.id}/videos`,
+      };
+
+      const getTrailer = (json) => {
+        const trailer = json.results.find(
+          (result) => result.type === "Trailer",
+        );
+
+        if (trailer) {
+          setTrailerUrl(trailer?.key);
+        } else {
+          setTrailerUrl("");
+        }
+      };
+
+      sendRequest(requestConfig, getTrailer);
+    }
+  }, [movie]);
+
   return (
     <>
       <Background serieBgImage={serieBgImage} type="trailer" />
       <div className="sm:p-16 p-2 flex sm:flex-row flex-col">
-        <div className="sm:w-7/12 w-full h-96 inline-block sm:p-10 px-3">
-          <iframe
-            src="https://www.youtube.com/embed/tgbNymZ7vqY"
-            title="trailer"
-            width="100%"
-            height="100%"
-            allowFullScreen
-          />
-        </div>
+        {trailerUrl ? (
+          <div className="sm:w-7/12 w-full h-96 inline-block sm:p-10 px-3 sm:pr-11">
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerUrl}`}
+              title="trailer"
+              width="100%"
+              height="100%"
+              allowFullScreen
+            />
+          </div>
+        ) : (
+          <div className="text-red-600 text-2xl p-4 rounded-lg bg-gray-700 w-full sm:w-7/12 flex justify-center items-center sm:mr-11">
+            Error! Trailer not found.
+          </div>
+        )}
         <div className="sm:w-5/12 w-full px-4 inline-block sm:pt-6 mt-20 sm:mt-0 self-center">
           <div className="flex justify-between items-center">
             <p className="font-semibold sm:text-4xl text-3xl text-[#aba2a2]">
@@ -61,9 +95,9 @@ function Trailer({ serieBgImage, movie }) {
   );
 }
 
-Trailer.propTypes = {
+TrailerSection.propTypes = {
   serieBgImage: PropTypes.string.isRequired,
   movie: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default Trailer;
+export default TrailerSection;
