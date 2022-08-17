@@ -1,22 +1,16 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import useRequest from "./hooks/useRequest";
 import HomeScreen from "./Components/HomeScreen";
 import Spinner from "./Components/UI/Spinner";
-import {
-  configurationActions,
-  selectors as configSelectors,
-} from "./store/slices/configuration";
+import { configurationActions } from "./store/slices/configuration";
 import { moviesActions } from "./store/slices/movies";
 
 function App() {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(configSelectors.getIsLoading);
-  console.log({ isLoading });
-
-  const { sendRequest } = useRequest();
+  const { isLoading, sendRequest } = useRequest();
 
   useEffect(() => {
     const requestConfig = {
@@ -42,7 +36,17 @@ function App() {
     sendRequest(requestConfig, getGenres);
   }, []);
 
-  return <>{isLoading ? <Spinner /> : <HomeScreen />}</>;
+  return (
+    <>
+      {isLoading ? (
+        <div className="w-screen h-screen bg-[rgba(0,0,0,0.7)] flex justify-center items-center">
+          <Spinner size="large" />
+        </div>
+      ) : (
+        <HomeScreen />
+      )}
+    </>
+  );
 }
 
 export default App;

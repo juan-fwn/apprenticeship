@@ -1,6 +1,7 @@
 .mediaScroller {
   padding: 8rem 6rem;
   padding-bottom: 0;
+  margin-bottom: 5rem;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
 }

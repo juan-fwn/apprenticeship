@@ -5,6 +5,7 @@ import styles from "./TrailerSection.module.css";
 import { ReactComponent as AddFavorite } from "../../assets/addFavorite.svg";
 import Background from "../UI/Background";
 import StarRate from "../UI/StarRate";
+import Spinner from "../UI/Spinner";
 import imbd from "../../assets/imbd.svg";
 
 import useRequest from "../../hooks/useRequest";
@@ -12,7 +13,7 @@ import useRequest from "../../hooks/useRequest";
 function TrailerSection({ serieBgImage, movie }) {
   const [trailerUrl, setTrailerUrl] = useState("");
 
-  const { sendRequest } = useRequest();
+  const { isLoading, sendRequest } = useRequest();
 
   useEffect(() => {
     if (Object.keys(movie).length) {
@@ -40,7 +41,12 @@ function TrailerSection({ serieBgImage, movie }) {
     <>
       <Background serieBgImage={serieBgImage} type="trailer" />
       <div className="xl:p-16 sm:px-4 p-2 flex lg:flex-row flex-col justify-center items-center hover:bg-[rgba(0,0,0,0.3)]">
-        {trailerUrl ? (
+        {isLoading && (
+          <div className="flex justify-center items-center">
+            <Spinner size="medium" />
+          </div>
+        )}
+        {!isLoading && trailerUrl && (
           <div className="sm:w-7/12 w-5/6 h-96 sm:max-w-4xl inline-block sm:m-10 mx-3 sm:mr-11 lg:order-1 order-2 mt-14">
             <iframe
               src={`https://www.youtube.com/embed/${trailerUrl}`}
@@ -50,7 +56,8 @@ function TrailerSection({ serieBgImage, movie }) {
               allowFullScreen
             />
           </div>
-        ) : (
+        )}
+        {!isLoading && !trailerUrl && (
           <div className="text-red-600 text-2xl p-4 rounded-lg bg-gray-700 w-full sm:w-7/12 flex justify-center items-center sm:mr-11 lg:order-1 order-2">
             Error! Trailer not found.
           </div>

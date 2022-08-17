@@ -1,16 +1,16 @@
 import { useState, useCallback } from "react";
-import { configurationActions } from "../store/slices/configuration";
 
 const token = "df7ba0e57e5998b3482646f2dded6d32";
 
 const baseUrl = "https://api.themoviedb.org/3";
 
 const useRequest = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const sendRequest = useCallback(async (requestConfig, applyData) => {
-    configurationActions.setIsLoading(true);
-    console.log("Set is loading to true");
+    setIsLoading(true);
+
     setError(null);
     try {
       const response = await fetch(
@@ -31,10 +31,10 @@ const useRequest = () => {
     } catch (err) {
       setError(err.message || "Something went wrong");
     }
-    configurationActions.setIsLoading(false);
+    setIsLoading(false);
   }, []);
 
-  return { error, sendRequest };
+  return { isLoading, error, sendRequest };
 };
 
 export default useRequest;

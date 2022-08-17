@@ -8,6 +8,7 @@ import MovieDetails from "./MovieDetails";
 import Header from "./Header";
 import MovieList from "./MovieList";
 import TrailerSection from "./TrailerSection";
+import Footer from "./Footer";
 
 import { selectors as configSelectors } from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
@@ -80,6 +81,7 @@ function HomeScreen() {
         baseUrl={secureBaseUrl}
         backdropSizes={backdropSizes}
       />
+      <Footer />
     </>
   );
 }
