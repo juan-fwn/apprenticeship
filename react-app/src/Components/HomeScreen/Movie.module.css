@@ -2,17 +2,17 @@
   position: relative;
 }
 
-.image {
-  object-fit: cover;
-  inline-size: 100%;
-  aspect-ratio: 16 / 9;
-}
-
 .poster:hover {
   /* transform: scale(1.84); */
   transform: scale(1.35);
   transition: ease-in-out 0.5s;
   z-index: 1;
+}
+
+.image {
+  object-fit: cover;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
 }
 
 .image-overlay {
@@ -55,4 +55,12 @@
     font-size: 1.2rem;
     padding-top: 0.5rem;
   }
+}
+
+.most-viewed-poster {
+  height: 100%;
+}
+
+.most-viewed-image {
+  height: 100%;
 }

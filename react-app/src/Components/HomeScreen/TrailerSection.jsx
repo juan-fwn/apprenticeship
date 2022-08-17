@@ -39,9 +39,9 @@ function TrailerSection({ serieBgImage, movie }) {
   return (
     <>
       <Background serieBgImage={serieBgImage} type="trailer" />
-      <div className="sm:p-16 p-2 flex sm:flex-row flex-col">
+      <div className="xl:p-16 sm:px-4 p-2 flex lg:flex-row flex-col justify-center items-center hover:bg-[rgba(0,0,0,0.3)]">
         {trailerUrl ? (
-          <div className="sm:w-7/12 w-full h-96 inline-block sm:p-10 px-3 sm:pr-11">
+          <div className="sm:w-7/12 w-5/6 h-96 sm:max-w-4xl inline-block sm:m-10 mx-3 sm:mr-11 lg:order-1 order-2 mt-14">
             <iframe
               src={`https://www.youtube.com/embed/${trailerUrl}`}
               title="trailer"
@@ -51,11 +51,11 @@ function TrailerSection({ serieBgImage, movie }) {
             />
           </div>
         ) : (
-          <div className="text-red-600 text-2xl p-4 rounded-lg bg-gray-700 w-full sm:w-7/12 flex justify-center items-center sm:mr-11">
+          <div className="text-red-600 text-2xl p-4 rounded-lg bg-gray-700 w-full sm:w-7/12 flex justify-center items-center sm:mr-11 lg:order-1 order-2">
             Error! Trailer not found.
           </div>
         )}
-        <div className="sm:w-5/12 w-full px-4 inline-block sm:pt-6 mt-20 sm:mt-0 self-center">
+        <div className="sm:w-5/12 w-full px-4 inline-block sm:pt-6 mt-20 sm:mt-0 self-center lg:order-2 order-1">
           <div className="flex justify-between items-center">
             <p className="font-semibold sm:text-4xl text-3xl text-[#aba2a2]">
               Movy
@@ -79,7 +79,7 @@ function TrailerSection({ serieBgImage, movie }) {
               </div>
             </button>
             <div className="flex h-4 ml-9">
-              <StarRate rate={movie?.vote_average} size="normal" />
+              <StarRate rate={movie?.vote_average || 0} size="normal" />
             </div>
           </div>
           <h1 className="pt-9 text-white sm:text-3xl text-2xl">

@@ -5,7 +5,7 @@ import styles from "./Background.module.css";
 
 function Background({ serieBgImage, type }) {
   return (
-    <div className={`${styles.shadow} ${styles[type]}`}>
+    <div className={`${styles.shadow} ${styles[type]} `}>
       <img
         src={serieBgImage}
         alt="Background"

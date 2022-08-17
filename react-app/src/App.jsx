@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import HomeScreen from "./Components/HomeScreen";
 import useRequest from "./hooks/useRequest";
-import { configurationActions } from "./store/slices/configuration";
+import HomeScreen from "./Components/HomeScreen";
+import Spinner from "./Components/UI/Spinner";
+import {
+  configurationActions,
+  selectors as configSelectors,
+} from "./store/slices/configuration";
 import { moviesActions } from "./store/slices/movies";
 
 function App() {
   const dispatch = useDispatch();
-  // const { isLoading, error, sendRequest } = useHttp();
+
+  const isLoading = useSelector(configSelectors.getIsLoading);
+  console.log({ isLoading });
+
   const { sendRequest } = useRequest();
 
   useEffect(() => {
@@ -35,7 +42,7 @@ function App() {
     sendRequest(requestConfig, getGenres);
   }, []);
 
-  return <HomeScreen />;
+  return <>{isLoading ? <Spinner /> : <HomeScreen />}</>;
 }
 
 export default App;

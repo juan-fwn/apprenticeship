@@ -59,7 +59,7 @@ function MovieDetails({ openNav, selectedMovie }) {
         </div>
         <div className="text-white text-lg self-center">Quentin Tarantino</div>
         <div className="sm:ml-14 mx-auto sm:mt-0 mt-7 sm:mb-0 mb-3 self-center flex justify-center">
-          <StarRate rate={selectedMovie?.vote_average} size="normal" />
+          <StarRate rate={selectedMovie?.vote_average || 0} size="normal" />
         </div>
       </div>
       <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">

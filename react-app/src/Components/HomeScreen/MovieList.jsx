@@ -17,10 +17,11 @@ function MovieList({
         {movies.map((movie, index) => (
           <div
             key={movie.poster_path}
-            className={`h-[165px] w-[301px] m-1 ${index === movies.length - 1 ? "mr-20" : ""}`}
+            className={`${listName === "Most Viewed" ? "h-[340px] w-[250px]" : "h-[165px] w-[301px]"} m-1 ${index === movies.length - 1 ? "mr-20" : ""}`}
           >
             <Movie
               movie={movie}
+              listName={listName}
               baseUrl={baseUrl}
               fileSize={backdropSizes ? backdropSizes.at(-1) : "original"}
             />

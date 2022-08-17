@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import styles from "./HomeScreen.module.css";
+
 import Background from "../UI/Background";
 import MovieDetails from "./MovieDetails";
 import Header from "./Header";
@@ -29,8 +31,12 @@ function HomeScreen() {
     return Math.floor(Math.random() * max);
   }
 
-  const randomMovie = movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
-  const randomMovieTrailer = movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
+  const randomMovie = React.useMemo(() => {
+    return movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
+  }, [movies]);
+  const randomMovieTrailer = React.useMemo(() => {
+    return movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
+  }, [movies]);
 
   useEffect(() => {
     const requestConfig = {
@@ -52,8 +58,10 @@ function HomeScreen() {
         }`}
         type="home"
       />
-      <Header open={open} setOpen={setOpen} />
-      <MovieDetails openNav={open} selectedMovie={randomMovie} />
+      <div className={styles.background}>
+        <Header open={open} setOpen={setOpen} />
+        <MovieDetails openNav={open} selectedMovie={randomMovie} />
+      </div>
       <MovieList
         listName="Popular on Movy"
         movies={movies}
@@ -65,6 +73,12 @@ function HomeScreen() {
         serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
           randomMovieTrailer.backdrop_path
         }`}
+      />
+      <MovieList
+        listName="Most Viewed"
+        movies={movies}
+        baseUrl={secureBaseUrl}
+        backdropSizes={backdropSizes}
       />
     </>
   );

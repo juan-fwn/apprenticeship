@@ -11,7 +11,9 @@ import StarRate from "../UI/StarRate";
 
 import { selectors } from "../../store/slices/movies";
 
-function Movie({ movie, baseUrl, fileSize }) {
+function Movie({
+  movie, baseUrl, fileSize, listName,
+}) {
   const genres = useSelector(selectors.getGenres);
 
   const genreList = movie?.genre_ids
@@ -21,11 +23,11 @@ function Movie({ movie, baseUrl, fileSize }) {
   const genrePlainText = genreList?.join(" • ");
 
   return (
-    <div className={styles.poster}>
+    <div className={`${styles.poster} ${listName === "Most Viewed" ? styles["most-viewed-poster"] : ""}`}>
       <img
         src={`${baseUrl}${fileSize}${movie.poster_path}`}
         alt={movie.title}
-        className={styles.image}
+        className={`${styles.image} ${listName === "Most Viewed" ? styles["most-viewed-image"] : ""}`}
       />
       <div className={styles["image-overlay"]}>
         <div className="flex flex-row justify-between">
@@ -49,7 +51,7 @@ function Movie({ movie, baseUrl, fileSize }) {
             : movie.name}
         </div>
         <div className="pt-3 flex">
-          <StarRate rate={movie?.vote_average} size="small" />
+          <StarRate rate={movie?.vote_average || 0} size="small" />
         </div>
         <div className="pt-3 text-white text-sm flex justify-between items-center">
           <p className={styles["cut-text"]}>
@@ -68,6 +70,7 @@ Movie.propTypes = {
   movie: PropTypes.objectOf(PropTypes.any).isRequired,
   baseUrl: PropTypes.string.isRequired,
   fileSize: PropTypes.string,
+  listName: PropTypes.string.isRequired,
 };
 
 Movie.defaultProps = {
