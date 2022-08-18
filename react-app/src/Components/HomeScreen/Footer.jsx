@@ -2,36 +2,36 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="p-28">
+    <div className="lg:p-28 md:px-12 md:py-28 px-4 py-16 transition-all duration-500 ease-in">
       <p className="text-white text-2xl">
         Questions? Call +1 (408) 600-1722 (USA)
       </p>
-      <table className="text-white text-xl mt-14">
+      <table className="text-white text-xl mt-14 w-full">
         <tr>
-          <td>
+          <td className="w-1/4 pb-5">
             <a href="/">FAQ</a>
           </td>
-          <td>
+          <td className="w-1/4 pb-5">
             <a href="/">Help Center</a>
           </td>
-          <td>
+          <td className="w-1/4 pb-5">
             <a href="/">Account</a>
           </td>
-          <td>
+          <td className="w-1/4 pb-5">
             <a href="/">Media Center</a>
           </td>
         </tr>
         <tr>
-          <td>
+          <td className="pb-5">
             <a href="/">Privacy</a>
           </td>
-          <td>
+          <td className="pb-5">
             <a href="/">Jobs</a>
           </td>
-          <td>
+          <td className="pb-5">
             <a href="/">Ways to Watch</a>
           </td>
-          <td>
+          <td className="pb-5">
             <a href="/">Terms of Use</a>
           </td>
         </tr>

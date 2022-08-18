@@ -41,26 +41,28 @@ function TrailerSection({ serieBgImage, movie }) {
     <>
       <Background serieBgImage={serieBgImage} type="trailer" />
       <div className="xl:p-16 sm:px-4 p-2 flex lg:flex-row flex-col justify-center items-center hover:bg-[rgba(0,0,0,0.3)]">
-        {isLoading && (
-          <div className="flex justify-center items-center">
+        {isLoading ? (
+          <div className="sm:w-7/12 w-5/6 flex justify-center items-center">
             <Spinner size="medium" />
           </div>
-        )}
-        {!isLoading && trailerUrl && (
-          <div className="sm:w-7/12 w-5/6 h-96 sm:max-w-4xl inline-block sm:m-10 mx-3 sm:mr-11 lg:order-1 order-2 mt-14">
-            <iframe
-              src={`https://www.youtube.com/embed/${trailerUrl}`}
-              title="trailer"
-              width="100%"
-              height="100%"
-              allowFullScreen
-            />
-          </div>
-        )}
-        {!isLoading && !trailerUrl && (
-          <div className="text-red-600 text-2xl p-4 rounded-lg bg-gray-700 w-full sm:w-7/12 flex justify-center items-center sm:mr-11 lg:order-1 order-2">
-            Error! Trailer not found.
-          </div>
+        ) : (
+          <>
+            {trailerUrl ? (
+              <div className="sm:w-7/12 w-5/6 h-96 sm:max-w-4xl inline-block sm:m-10 mx-3 sm:mr-11 lg:order-1 order-2 mt-14">
+                <iframe
+                  src={`https://www.youtube.com/embed/${trailerUrl}`}
+                  title="trailer"
+                  width="100%"
+                  height="100%"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <div className="text-red-600 text-2xl p-4 rounded-lg bg-gray-700 w-full sm:w-7/12 flex justify-center items-center sm:mr-11 lg:order-1 order-2 lg:mt-0 mt-10">
+                Error! Trailer not found.
+              </div>
+            )}
+          </>
         )}
         <div className="sm:w-5/12 w-full px-4 inline-block sm:pt-6 mt-20 sm:mt-0 self-center lg:order-2 order-1">
           <div className="flex justify-between items-center">
