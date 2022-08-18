@@ -63,24 +63,36 @@ function HomeScreen() {
         <Header open={open} setOpen={setOpen} />
         <MovieDetails openNav={open} selectedMovie={randomMovie} />
       </div>
-      <MovieList
-        listName="Popular on Movy"
-        movies={movies}
-        baseUrl={secureBaseUrl}
-        backdropSizes={backdropSizes}
-      />
+      <div className="my-14">
+        <MovieList
+          listName="Popular on Movy"
+          movies={movies}
+          baseUrl={secureBaseUrl}
+          backdropSizes={backdropSizes}
+        />
+      </div>
       <TrailerSection
         movie={randomMovieTrailer}
         serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
           randomMovieTrailer.backdrop_path
         }`}
       />
-      <MovieList
-        listName="Most Viewed"
-        movies={movies}
-        baseUrl={secureBaseUrl}
-        backdropSizes={backdropSizes}
-      />
+      <div className="mt-20">
+        <MovieList
+          listName="Most Viewed"
+          movies={movies}
+          baseUrl={secureBaseUrl}
+          backdropSizes={backdropSizes}
+        />
+      </div>
+      <div>
+        <MovieList
+          listName="Recommended movies"
+          movies={movies}
+          baseUrl={secureBaseUrl}
+          backdropSizes={backdropSizes}
+        />
+      </div>
       <Footer />
     </>
   );

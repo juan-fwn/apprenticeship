@@ -12,7 +12,12 @@ import StarRate from "../UI/StarRate";
 import { selectors } from "../../store/slices/movies";
 
 function Movie({
-  movie, baseUrl, fileSize, listName,
+  movie,
+  baseUrl,
+  fileSize,
+  listName,
+  selectedMovie,
+  setSelectedMovie,
 }) {
   const genres = useSelector(selectors.getGenres);
 
@@ -24,7 +29,11 @@ function Movie({
 
   return (
     <div
-      className={`${styles.poster} ${
+      onKeyDown={() => setSelectedMovie(movie)}
+      onClick={() => setSelectedMovie(movie)}
+      className={`${
+        selectedMovie?.id === movie?.id ? styles["selected-movie"] : ""
+      } ${listName !== "Recommended movies" ? styles.poster : ""} ${
         listName === "Most Viewed" ? styles["light-blue_shadow"] : ""
       }`}
     >
@@ -38,7 +47,7 @@ function Movie({
       <div className={styles["image-overlay"]}>
         <div className="flex flex-row justify-between">
           <div className="flex flex-row items-center">
-            {listName !== "Most Viewed" && (
+            {listName === "Popular on Movy" && (
               <>
                 <div className="inline-block">
                   <AddFavorite fill="#aba2a2" />
@@ -55,10 +64,15 @@ function Movie({
             </div>
           </div>
         </div>
+        {listName === "Most Viewed" && (
+          <div className="flex justify-center mt-20">
+            <img src={play} alt="Play" className="w-20 h-20" />
+          </div>
+        )}
         <div
           className={`${
             listName === "Most Viewed"
-            && "mt-44 flex items-center justify-between"
+            && "mt-4 flex items-center justify-between"
           }`}
         >
           <div
@@ -108,6 +122,8 @@ Movie.propTypes = {
   baseUrl: PropTypes.string.isRequired,
   fileSize: PropTypes.string,
   listName: PropTypes.string.isRequired,
+  selectedMovie: PropTypes.objectOf(PropTypes.any).isRequired,
+  setSelectedMovie: PropTypes.func.isRequired,
 };
 
 Movie.defaultProps = {

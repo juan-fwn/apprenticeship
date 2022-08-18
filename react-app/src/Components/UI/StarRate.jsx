@@ -9,7 +9,7 @@ function StarRate({ rate, size }) {
   const fullStars = Math.floor(starRate);
 
   const starsArray = [];
-  for (let i = 0; i <= fullStars; i += 1) {
+  for (let i = 1; i <= fullStars; i += 1) {
     starsArray.push(i);
   }
 

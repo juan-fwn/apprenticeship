@@ -2,6 +2,11 @@
   position: relative;
 }
 
+.selected-movie {
+  position: relative;
+  border: 3px solid white;
+}
+
 .poster:hover {
   /* transform: scale(1.84); */
   transform: scale(1.35);
