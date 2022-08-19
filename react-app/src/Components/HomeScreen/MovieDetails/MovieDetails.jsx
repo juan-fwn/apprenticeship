@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import centerDot from "../../assets/centerDot.svg";
-import directorLogo from "../../assets/directorLogo.svg";
-import { ReactComponent as AddFavorite } from "../../assets/addFavorite.svg";
-import watchTrailer from "../../assets/watchTrailer.svg";
-import imbd from "../../assets/imbd.svg";
-import volume from "../../assets/volume.svg";
-import StarRate from "../UI/StarRate";
+import centerDot from "../../../assets/centerDot.svg";
+import directorLogo from "../../../assets/directorLogo.svg";
+import { ReactComponent as AddFavorite } from "../../../assets/addFavorite.svg";
+import watchTrailer from "../../../assets/watchTrailer.svg";
+import imbd from "../../../assets/imbd.svg";
+import volume from "../../../assets/volume.svg";
+import StarRate from "../../UI/StarRate";
 
-import { selectors } from "../../store/slices/movies";
+import { selectors } from "../../../store/slices/movies";
 
 function MovieDetails({ openNav, selectedMovie }) {
   const genres = useSelector(selectors.getGenres);

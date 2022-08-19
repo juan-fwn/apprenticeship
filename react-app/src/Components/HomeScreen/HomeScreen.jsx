@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./HomeScreen.module.css";
 
-import Background from "../UI/Background";
-import MovieDetails from "./MovieDetails";
+import Background from "../UI/Background/Background";
+import MovieDetails from "./MovieDetails/MovieDetails";
 import Header from "./Header";
-import MovieList from "./MovieList";
-import TrailerSection from "./TrailerSection";
-import Footer from "./Footer";
+import MovieList from "./MovieList/MovieList";
+import TrailerSection from "./TrailerSection/TrailerSection";
+import RecommendedMovie from "./RecommendedMovie";
+import Footer from "./Footer/Footer";
 
 import { selectors as configSelectors } from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
@@ -18,6 +19,7 @@ function HomeScreen() {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState();
   const movies = useSelector(selectors.getMovies);
 
   const imageSettings = useSelector(configSelectors.getImageSettings);
@@ -91,7 +93,12 @@ function HomeScreen() {
           movies={movies}
           baseUrl={secureBaseUrl}
           backdropSizes={backdropSizes}
+          selectedMovie={selectedMovie}
+          setSelectedMovie={setSelectedMovie}
         />
+      </div>
+      <div className="mt-2">
+        <RecommendedMovie />
       </div>
       <Footer />
     </>

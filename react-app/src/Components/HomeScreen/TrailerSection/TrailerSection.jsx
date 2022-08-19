@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./TrailerSection.module.css";
 
-import { ReactComponent as AddFavorite } from "../../assets/addFavorite.svg";
-import Background from "../UI/Background";
-import StarRate from "../UI/StarRate";
-import Spinner from "../UI/Spinner";
-import imbd from "../../assets/imbd.svg";
+import { ReactComponent as AddFavorite } from "../../../assets/addFavorite.svg";
+import Background from "../../UI/Background/Background";
+import StarRate from "../../UI/StarRate";
+import Spinner from "../../UI/Spinner";
+import imbd from "../../../assets/imbd.svg";
 
-import useRequest from "../../hooks/useRequest";
+import useRequest from "../../../hooks/useRequest";
 
 function TrailerSection({ serieBgImage, movie }) {
   const [trailerUrl, setTrailerUrl] = useState("");
@@ -40,7 +40,7 @@ function TrailerSection({ serieBgImage, movie }) {
   return (
     <>
       <Background serieBgImage={serieBgImage} type="trailer" />
-      <div className="xl:p-16 sm:px-4 p-2 flex lg:flex-row flex-col justify-center items-center hover:bg-[rgba(0,0,0,0.3)]">
+      <div className={styles["trailer-shadow"]}>
         {isLoading ? (
           <div className="sm:w-7/12 w-5/6 flex justify-center items-center">
             <Spinner size="medium" />

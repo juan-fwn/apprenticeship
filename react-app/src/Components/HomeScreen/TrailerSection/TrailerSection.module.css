@@ -1,0 +1,54 @@
+.button {
+  padding: 0.6rem;
+  width: 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: rgba(192, 192, 192, 0.3);
+}
+
+.trailer-shadow {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trailer-shadow:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 645px) {
+  .trailer-shadow {
+    height: 670px;
+    padding: 0 1rem;
+  }
+}
+@media (min-width: 1024px) {
+  .trailer-shadow {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1220px) {
+  .trailer-shadow {
+    padding: 4rem;
+  }
+}
+@media (min-width: 1300px) {
+  .trailer-shadow {
+    height: 700px;
+  }
+}
+@media (min-width: 1650px) {
+  .trailer-shadow {
+    height: 690px;
+  }
+}
+@media (max-width: 640px) {
+  .trailer-shadow {
+    min-height: 23rem;
+  }
+}

@@ -1,0 +1,39 @@
+.recommended-movie {
+  padding: 2.5rem;
+}
+
+.recommended-movie:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 645px) {
+  .recommended-movie {
+    height: 670px;
+    /* padding: 0 1rem; */
+  }
+}
+@media (min-width: 1024px) {
+  .recommended-movie {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1220px) {
+  .recommended-movie {
+    padding: 4rem;
+  }
+}
+@media (min-width: 1300px) {
+  .recommended-movie {
+    height: 700px;
+  }
+}
+@media (min-width: 1650px) {
+  .recommended-movie {
+    height: 690px;
+  }
+}
+@media (max-width: 640px) {
+  .recommended-movie {
+    min-height: 23rem;
+  }
+}
