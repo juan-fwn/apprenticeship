@@ -29,8 +29,8 @@ function Movie({
       }`}
     >
       <img
-        src={`${baseUrl}${fileSize}${movie.poster_path}`}
-        alt={movie.title}
+        src={`${baseUrl}${fileSize}${movie?.poster_path}`}
+        alt={movie?.title}
         className={`${styles.image} ${
           listName === "Most Viewed" ? styles["most-viewed-image"] : ""
         }`}
@@ -73,8 +73,8 @@ function Movie({
               }`}
             >
               {movie?.original_title?.length > 0
-                ? movie.original_title
-                : movie.name}
+                ? movie?.original_title
+                : movie?.name}
             </div>
             <div className="pt-3 inline-block">
               <div className="flex">

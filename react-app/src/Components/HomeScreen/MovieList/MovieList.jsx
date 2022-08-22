@@ -40,8 +40,6 @@ function MovieList({
             )}
             <Movie
               movie={movie}
-              selectedMovie={selectedMovie}
-              setSelectedMovie={setSelectedMovie}
               listName={listName}
               baseUrl={baseUrl}
               fileSize={backdropSizes ? backdropSizes.at(-1) : "original"}

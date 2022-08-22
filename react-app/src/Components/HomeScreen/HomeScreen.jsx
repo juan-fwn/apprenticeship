@@ -19,7 +19,7 @@ function HomeScreen() {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState();
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const movies = useSelector(selectors.getMovies);
 
   const imageSettings = useSelector(configSelectors.getImageSettings);
@@ -97,9 +97,14 @@ function HomeScreen() {
           setSelectedMovie={setSelectedMovie}
         />
       </div>
-      <div className="mt-2">
-        <RecommendedMovie />
-      </div>
+      {selectedMovie && (
+        <div className="mt-2">
+          <RecommendedMovie
+            selectedMovie={selectedMovie}
+            setSelectedMovie={setSelectedMovie}
+          />
+        </div>
+      )}
       <Footer />
     </>
   );
