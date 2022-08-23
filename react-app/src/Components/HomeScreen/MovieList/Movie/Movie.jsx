@@ -24,7 +24,7 @@ function Movie({
 
   return (
     <div
-      className={`${listName !== "Recommended movies" ? styles.poster : "relative h-full"} ${
+      className={`${(listName.length > 0 && listName !== "Recommended movies") ? styles.poster : "relative h-full"} ${
         listName === "Most Viewed" ? styles["light-blue_shadow"] : ""
       }`}
     >
@@ -35,7 +35,7 @@ function Movie({
           listName === "Most Viewed" ? styles["most-viewed-image"] : ""
         }`}
       />
-      {listName !== "Recommended movies" && (
+      {(listName.length > 0 && listName !== "Recommended movies") && (
         <div className={styles["image-overlay"]}>
           <div className="flex flex-row justify-between">
             <div className="flex flex-row items-center">

@@ -1,20 +1,7 @@
 .recommended-movie {
-  padding: 1rem 2rem;
-}
-
-.recommended-movie:hover {
+  padding: 1rem 3rem;
   background-color: rgba(0, 0, 0, 0.3);
-}
-
-.cut-text {
-  color: white;
-  font-size: 1.125rem;
-  margin-top: 2.5rem;
-  overflow: hidden;
-  max-width: 50%;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  position: relative;
 }
 
 .selected-nav {
@@ -42,7 +29,7 @@
 }
 @media (min-width: 1220px) {
   .recommended-movie {
-    padding: 1rem 2rem;
+    padding: 1rem 4rem;
   }
 }
 @media (min-width: 1300px) {
