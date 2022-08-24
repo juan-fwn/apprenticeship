@@ -8,6 +8,7 @@ import cross from "../../../assets/cross.svg";
 import Background from "../../UI/Background/Background";
 import Overview from "./Overview";
 import MoreLikeThis from "./MoreLikeThis";
+import Details from "./Details";
 
 import { selectors as configSelectors } from "../../../store/slices/configuration";
 import { selectors } from "../../../store/slices/movies";
@@ -41,7 +42,28 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
 
   const genrePlainText = genreList?.join(" • ");
 
-  console.log({ selectedNav });
+  const getSectionContent = (id) => {
+    switch (id) {
+      case constants.RECOMMENDED_MOVIE_NAVBAR.OVERVIEW:
+        return (
+          <Overview selectedMovie={selectedMovie} genre={genrePlainText} />
+        );
+      case constants.RECOMMENDED_MOVIE_NAVBAR["MORE LIKE THIS"]:
+        return (
+          <MoreLikeThis
+            selectedMovie={selectedMovie}
+            secureBaseUrl={secureBaseUrl}
+            backdropSizes={backdropSizes}
+          />
+        );
+      case constants.RECOMMENDED_MOVIE_NAVBAR.DETAILS:
+        return (
+          <Details selectedMovie={selectedMovie} />
+        );
+      default:
+        return <Overview selectedMovie={selectedMovie} genre={genrePlainText} />;
+    }
+  };
 
   return (
     <>
@@ -64,22 +86,7 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
             ? selectedMovie?.original_title
             : selectedMovie?.name}
         </p>
-        {selectedNav === constants.RECOMMENDED_MOVIE_NAVBAR.OVERVIEW ? (
-          <Overview selectedMovie={selectedMovie} genre={genrePlainText} />
-        ) : (
-          <>
-            {selectedNav
-            === constants.RECOMMENDED_MOVIE_NAVBAR["MORE LIKE THIS"] ? (
-              <MoreLikeThis
-                selectedMovie={selectedMovie}
-                secureBaseUrl={secureBaseUrl}
-                backdropSizes={backdropSizes}
-              />
-              ) : (
-                ""
-              )}
-          </>
-        )}
+        {getSectionContent(selectedNav)}
         <div className="flex justify-center">
           <nav className="flex justify-center items-center font-semibold text-white gap-20 mt-20 absolute bottom-14">
             {navBar.map((option) => {

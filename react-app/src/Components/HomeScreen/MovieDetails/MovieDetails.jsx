@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
+import styles from "./MovieDetails.module.css";
+
 import centerDot from "../../../assets/centerDot.svg";
 import directorLogo from "../../../assets/directorLogo.svg";
 import { ReactComponent as AddFavorite } from "../../../assets/addFavorite.svg";
@@ -62,7 +64,9 @@ function MovieDetails({ openNav, selectedMovie }) {
           <StarRate rate={selectedMovie?.vote_average || 0} size="normal" />
         </div>
       </div>
-      <p className="text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm">
+      <p
+        className={`text-white mt-10 sm:w-3/4 w-auto sm:text-base text-sm ${styles["limit-lines"]}`}
+      >
         {selectedMovie?.overview}
       </p>
       <div className="flex sm:flex-row flex-col sm:justify-between mt-8 sm:mt-28">

@@ -18,3 +18,8 @@
   bottom: -1.6rem;
   left: 35%;
 }
+
+.no-padding {
+  padding: 0;
+  height: 22.5rem;
+}

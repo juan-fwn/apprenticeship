@@ -20,17 +20,19 @@ function MoreLikeThis({ selectedMovie, secureBaseUrl, backdropSizes }) {
       path: `/movie/${selectedMovie.id}/similar`,
     };
 
-    const getImages = (json) => {
+    const getSimilarMovies = (json) => {
       dispatch(moviesActions.setSimilarMovies(json.results));
     };
 
-    sendRequest(requestConfig, getImages);
+    sendRequest(requestConfig, getSimilarMovies);
   }, [selectedMovie]);
 
   return (
     <>
       {isLoading ? (
-        <Spinner size="medium" />
+        <div className="flex justify-center items-center mt-20">
+          <Spinner size="medium" />
+        </div>
       ) : (
         <MovieList
           listName=""

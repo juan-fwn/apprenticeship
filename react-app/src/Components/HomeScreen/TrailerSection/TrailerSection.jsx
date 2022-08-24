@@ -95,7 +95,7 @@ function TrailerSection({ serieBgImage, movie }) {
           <h1 className="pt-9 text-white sm:text-3xl text-2xl">
             Coming August 30
           </h1>
-          <p className="pt-6 text-white sm:text-xl text-base">
+          <p className={`pt-6 text-white sm:text-xl text-base ${styles["limit-lines"]}`}>
             {movie?.overview}
           </p>
           <img src={imbd} alt="imbd" className="pt-10" />

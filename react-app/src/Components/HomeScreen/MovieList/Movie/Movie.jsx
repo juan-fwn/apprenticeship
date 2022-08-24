@@ -23,90 +23,110 @@ function Movie({
   const genrePlainText = genreList?.join(" • ");
 
   return (
-    <div
-      className={`${(listName.length > 0 && listName !== "Recommended movies") ? styles.poster : "relative h-full"} ${
-        listName === "Most Viewed" ? styles["light-blue_shadow"] : ""
-      }`}
-    >
-      <img
-        src={`${baseUrl}${fileSize}${movie?.poster_path}`}
-        alt={movie?.title}
-        className={`${styles.image} ${
-          listName === "Most Viewed" ? styles["most-viewed-image"] : ""
-        }`}
-      />
-      {(listName.length > 0 && listName !== "Recommended movies") && (
-        <div className={styles["image-overlay"]}>
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-row items-center">
-              {listName === "Popular on Movy" && (
-                <>
-                  <div className="inline-block">
-                    <AddFavorite fill="#aba2a2" />
-                  </div>
-                  <div className="inline-block ml-2">
-                    <Share fill="#aba2a2" />
-                  </div>
-                </>
-              )}
-            </div>
-            <div className="self-start">
-              <div className="border rounded-3xl border-[#aba2a2] text-xs w-16 h-7 flex justify-center items-center text-[#aba2a2] font-semibold sm:self-end self-start sm:mt-0 mt-4">
-                PG 13
+    <>
+      <div
+        className={`${
+          listName.length > 0 && listName !== "Recommended movies"
+            ? styles.poster
+            : "relative h-full"
+        } ${listName === "Most Viewed" ? styles["light-blue_shadow"] : ""}`}
+      >
+        <img
+          src={`${baseUrl}${fileSize}${movie?.poster_path}`}
+          alt={movie?.title}
+          className={`${styles.image} ${
+            listName === "Most Viewed" ? styles["most-viewed-image"] : ""
+          }`}
+        />
+        {listName.length > 0 && listName !== "Recommended movies" && (
+          <div className={styles["image-overlay"]}>
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row items-center">
+                {listName === "Popular on Movy" && (
+                  <>
+                    <div className="inline-block">
+                      <AddFavorite fill="#aba2a2" />
+                    </div>
+                    <div className="inline-block ml-2">
+                      <Share fill="#aba2a2" />
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="self-start">
+                <div className="border rounded-3xl border-[#aba2a2] text-xs w-16 h-7 flex justify-center items-center text-[#aba2a2] font-semibold sm:self-end self-start sm:mt-0 mt-4">
+                  PG 13
+                </div>
               </div>
             </div>
-          </div>
-          {listName === "Most Viewed" && (
-            <div className="flex justify-center mt-20">
-              <img src={play} alt="Play" className="w-20 h-20" />
-            </div>
-          )}
-          <div
-            className={`${
-              listName === "Most Viewed"
-              && "mt-4 flex items-center justify-between"
-            }`}
-          >
+            {listName === "Most Viewed" && (
+              <div className="flex justify-center mt-20">
+                <img src={play} alt="Play" className="w-20 h-20" />
+              </div>
+            )}
             <div
-              className={`${styles["movie-title"]} ${
-                listName === "Most Viewed" && styles["movie-title-most-viewed"]
+              className={`${
+                listName === "Most Viewed"
+                && "mt-4 flex items-center justify-between"
               }`}
             >
+              <div
+                className={`${styles["movie-title"]} ${
+                  listName === "Most Viewed"
+                  && styles["movie-title-most-viewed"]
+                }`}
+              >
+                {movie?.original_title?.length > 0
+                  ? movie?.original_title
+                  : movie?.name}
+              </div>
+              <div className="pt-3 inline-block">
+                <div className="flex">
+                  <StarRate rate={movie?.vote_average || 0} size="small" />
+                </div>
+              </div>
+            </div>
+            <div className="pt-2 text-white text-sm flex justify-between items-center">
+              {listName === "Most Viewed" ? (
+                <div className="flex items-center">
+                  <AddFavorite fill="#aba2a2" />
+                  <p className="ml-2">Watch Later</p>
+                </div>
+              ) : (
+                <p className={styles["cut-text"]}>
+                  {genrePlainText?.length > 0 ? genrePlainText : ""}
+                </p>
+              )}
+              {listName === "Most Viewed" ? (
+                <div className="flex items-center">
+                  <Share fill="#aba2a2" />
+                  <p className="ml-2">Share</p>
+                </div>
+              ) : (
+                <div>
+                  <img src={play} alt="Play" />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      {listName.length === 0 && (
+        <>
+          <div className="flex justify-between items-center mt-5">
+            <p className={`text-white text-xl font-semibold ${styles["cut-text"]}`}>
               {movie?.original_title?.length > 0
                 ? movie?.original_title
                 : movie?.name}
-            </div>
-            <div className="pt-3 inline-block">
-              <div className="flex">
-                <StarRate rate={movie?.vote_average || 0} size="small" />
-              </div>
+            </p>
+            <div className="border rounded-3xl border-[#aba2a2] text-xs w-16 h-7 flex justify-center items-center text-[#aba2a2] font-semibold sm:self-end self-start">
+              PG 13
             </div>
           </div>
-          <div className="pt-2 text-white text-sm flex justify-between items-center">
-            {listName === "Most Viewed" ? (
-              <div className="flex items-center">
-                <AddFavorite fill="#aba2a2" />
-                <p className="ml-2">Watch Later</p>
-              </div>
-            ) : (
-              <p className={styles["cut-text"]}>
-                {genrePlainText?.length > 0 ? genrePlainText : ""}
-              </p>
-            )}
-            {listName === "Most Viewed" ? (
-              <div className="flex items-center">
-                <Share fill="#aba2a2" />
-                <p className="ml-2">Share</p>
-              </div>
-            ) : (
-              <div>
-                <img src={play} alt="Play" />
-              </div>
-            )}
-          </div>
-        </div>
+          <p className={`text-white mt-5 ${styles["limit-lines"]}`}>{movie?.overview}</p>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

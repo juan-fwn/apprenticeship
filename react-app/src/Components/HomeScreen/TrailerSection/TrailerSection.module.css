@@ -18,6 +18,13 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.limit-lines {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
 @media (min-width: 645px) {
   .trailer-shadow {
     height: 670px;
