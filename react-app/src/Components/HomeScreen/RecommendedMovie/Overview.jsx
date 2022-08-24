@@ -18,7 +18,7 @@ function Overview({ selectedMovie, genre }) {
           PG 13
         </div>
       </div>
-      <p className={styles["cut-text"]}>{selectedMovie?.overview}</p>
+      <p className={styles["cut-text"]}>{selectedMovie.overview}</p>
       <div className="flex items-center flex-col sm:flex-row mt-16">
         <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
           <img src={watchTrailer} alt="watch-trailer" />

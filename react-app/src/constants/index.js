@@ -1,9 +1,7 @@
-const constants = {
-  RECOMMENDED_MOVIE_NAVBAR: {
-    OVERVIEW: 0,
-    "MORE LIKE THIS": 1,
-    DETAILS: 2,
-  },
+export const RECOMMENDED_NAVBAR_OPTIONS = {
+  OVERVIEW: 'OVERVIEW',
+  MORE_LIKE_THIS: 'MORE LIKE THIS',
+  DETAILS: 'DETAILS',
 };
 
-export default constants;
+export default { RECOMMENDED_NAVBAR_OPTIONS };
