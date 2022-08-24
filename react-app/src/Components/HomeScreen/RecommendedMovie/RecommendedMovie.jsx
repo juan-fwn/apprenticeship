@@ -13,13 +13,11 @@ import Details from "./Details";
 import { selectors as configSelectors } from "../../../store/slices/configuration";
 import { selectors } from "../../../store/slices/movies";
 
-import constants from "../../../constants";
+import { RECOMMENDED_MOVIE_NAVBAR } from "../../../constants";
 
-const navBar = [
-  { id: 0, name: "OVERVIEW" },
-  { id: 1, name: "MORE LIKE THIS" },
-  { id: 2, name: "DETAILS" },
-];
+const navBar = Object.keys(RECOMMENDED_MOVIE_NAVBAR);
+
+console.log({ navBar });
 
 function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
   const [selectedNav, setSelectedNav] = useState(0);
@@ -44,11 +42,11 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
 
   const getSectionContent = (id) => {
     switch (id) {
-      case constants.RECOMMENDED_MOVIE_NAVBAR.OVERVIEW:
+      case RECOMMENDED_MOVIE_NAVBAR.OVERVIEW:
         return (
           <Overview selectedMovie={selectedMovie} genre={genrePlainText} />
         );
-      case constants.RECOMMENDED_MOVIE_NAVBAR["MORE LIKE THIS"]:
+      case RECOMMENDED_MOVIE_NAVBAR.MORE_LIKE_THIS:
         return (
           <MoreLikeThis
             selectedMovie={selectedMovie}
@@ -56,12 +54,12 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
             backdropSizes={backdropSizes}
           />
         );
-      case constants.RECOMMENDED_MOVIE_NAVBAR.DETAILS:
-        return (
-          <Details selectedMovie={selectedMovie} />
-        );
+      case RECOMMENDED_MOVIE_NAVBAR.DETAILS:
+        return <Details selectedMovie={selectedMovie} />;
       default:
-        return <Overview selectedMovie={selectedMovie} genre={genrePlainText} />;
+        return (
+          <Overview selectedMovie={selectedMovie} genre={genrePlainText} />
+        );
     }
   };
 
@@ -92,17 +90,17 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
             {navBar.map((option) => {
               return (
                 <button
-                  key={option?.id?.toString()}
+                  key={option}
                   type="button"
-                  value={option.id}
-                  onClick={() => setSelectedNav(option?.id)}
+                  value={option}
+                  onClick={() => setSelectedNav(option)}
                   className={`${
-                    selectedNav === option.id
+                    selectedNav === option
                       ? styles["selected-nav"]
                       : "relative"
                   }`}
                 >
-                  {option?.name}
+                  {option}
                 </button>
               );
             })}

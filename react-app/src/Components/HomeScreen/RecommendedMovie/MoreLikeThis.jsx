@@ -34,12 +34,14 @@ function MoreLikeThis({ selectedMovie, secureBaseUrl, backdropSizes }) {
           <Spinner size="medium" />
         </div>
       ) : (
-        <MovieList
-          listName=""
-          movies={similarMovies}
-          baseUrl={secureBaseUrl}
-          backdropSizes={backdropSizes}
-        />
+        <div className="mt-4">
+          <MovieList
+            listName=""
+            movies={similarMovies}
+            baseUrl={secureBaseUrl}
+            backdropSizes={backdropSizes}
+          />
+        </div>
       )}
     </>
   );
