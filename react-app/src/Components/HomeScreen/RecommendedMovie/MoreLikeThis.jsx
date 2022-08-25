@@ -13,7 +13,7 @@ function MoreLikeThis({ selectedMovie, secureBaseUrl, backdropSizes }) {
 
   const similarMovies = useSelector(selectors.getSimilarMovies);
 
-  const { isLoading, sendRequest } = useRequest();
+  const { error, isLoading, sendRequest } = useRequest();
 
   useEffect(() => {
     const requestConfig = {
@@ -34,14 +34,22 @@ function MoreLikeThis({ selectedMovie, secureBaseUrl, backdropSizes }) {
           <Spinner size="medium" />
         </div>
       ) : (
-        <div className="mt-4">
-          <MovieList
-            listName=""
-            movies={similarMovies}
-            baseUrl={secureBaseUrl}
-            backdropSizes={backdropSizes}
-          />
-        </div>
+        <>
+          {error ? (
+            <p className="rounded-lg bg-gray-400 text-red-600 mt-14 flex justify-center items-center p-4">
+              Error! Similar movies not found.
+            </p>
+          ) : (
+            <div className="mt-4">
+              <MovieList
+                listName=""
+                movies={similarMovies}
+                baseUrl={secureBaseUrl}
+                backdropSizes={backdropSizes}
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   );

@@ -27,7 +27,7 @@
 
 @media (min-width: 645px) {
   .trailer-shadow {
-    height: 670px;
+    /* height: 670px; */
     padding: 0 1rem;
   }
 }

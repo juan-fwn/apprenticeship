@@ -3,8 +3,14 @@
   font-size: 1.125rem;
   margin-top: 2.5rem;
   overflow: hidden;
-  max-width: 50%;
+  max-width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+@media (min-width: 645px) {
+  .cut-text {
+    max-width: 50%;
+  }
 }

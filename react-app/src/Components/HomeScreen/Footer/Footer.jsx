@@ -3,10 +3,10 @@ import React from "react";
 function Footer() {
   return (
     <div className="lg:p-28 md:px-12 md:py-28 px-4 py-16 transition-all duration-500 ease-in">
-      <p className="text-white text-2xl">
+      <p className="text-white sm:text-2xl text-xl">
         Questions? Call +1 (408) 600-1722 (USA)
       </p>
-      <table className="text-white text-xl mt-14 w-full">
+      <table className="text-white sm:text-xl text-base mt-14 w-full">
         <tr>
           <td className="w-1/4 pb-5">
             <a href="/">FAQ</a>

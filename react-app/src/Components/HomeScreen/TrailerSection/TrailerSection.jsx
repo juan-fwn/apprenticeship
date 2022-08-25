@@ -65,7 +65,7 @@ function TrailerSection({ serieBgImage, movie }) {
             )}
           </>
         )}
-        <div className="sm:w-5/12 w-full px-4 inline-block sm:pt-6 mt-20 sm:mt-0 self-center lg:order-2 order-1">
+        <div className="sm:w-7/12 md:w-9/12 w-full px-4 inline-block sm:pt-6 sm:mt-0 self-center lg:order-2 order-1">
           <div className="flex justify-between items-center">
             <p className="font-semibold sm:text-4xl text-3xl text-[#aba2a2]">
               Movy
@@ -95,7 +95,9 @@ function TrailerSection({ serieBgImage, movie }) {
           <h1 className="pt-9 text-white sm:text-3xl text-2xl">
             Coming August 30
           </h1>
-          <p className={`pt-6 text-white sm:text-xl text-base ${styles["limit-lines"]}`}>
+          <p
+            className={`pt-6 text-white sm:text-xl text-base ${styles["limit-lines"]}`}
+          >
             {movie?.overview}
           </p>
           <img src={imbd} alt="imbd" className="pt-10" />

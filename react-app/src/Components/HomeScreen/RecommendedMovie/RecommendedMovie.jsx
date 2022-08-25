@@ -20,7 +20,9 @@ const navBar = Object.keys(RECOMMENDED_MOVIE_NAVBAR);
 console.log({ navBar });
 
 function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
-  const [selectedNav, setSelectedNav] = useState(0);
+  const [selectedNav, setSelectedNav] = useState(
+    RECOMMENDED_MOVIE_NAVBAR.OVERVIEW,
+  );
 
   const imageSettings = useSelector(configSelectors.getImageSettings);
   const {
@@ -40,8 +42,8 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
 
   const genrePlainText = genreList?.join(" • ");
 
-  const getSectionContent = (id) => {
-    switch (id) {
+  const getSectionContent = (navOption) => {
+    switch (navOption) {
       case RECOMMENDED_MOVIE_NAVBAR.OVERVIEW:
         return (
           <Overview selectedMovie={selectedMovie} genre={genrePlainText} />
@@ -85,27 +87,25 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
             : selectedMovie?.name}
         </p>
         {getSectionContent(selectedNav)}
-        <div className="flex justify-center">
-          <nav className="flex justify-center items-center font-semibold text-white gap-20 mt-20 absolute bottom-14">
-            {navBar.map((option) => {
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  value={option}
-                  onClick={() => setSelectedNav(option)}
-                  className={`${
-                    selectedNav === option
-                      ? styles["selected-nav"]
-                      : "relative"
-                  }`}
-                >
-                  {option}
-                </button>
-              );
-            })}
-          </nav>
-        </div>
+        <nav className="flex sm:flex-row flex-col justify-center items-center font-semibold text-white sm:gap-20 gap-10 mt-20">
+          {navBar.map((option) => {
+            return (
+              <button
+                key={option}
+                type="button"
+                value={option}
+                onClick={() => setSelectedNav(RECOMMENDED_MOVIE_NAVBAR[option])}
+                className={`${
+                  selectedNav === RECOMMENDED_MOVIE_NAVBAR[option]
+                    ? styles["selected-nav"]
+                    : "relative"
+                }`}
+              >
+                {option}
+              </button>
+            );
+          })}
+        </nav>
       </div>
     </>
   );
