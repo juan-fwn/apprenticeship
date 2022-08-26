@@ -16,38 +16,42 @@ describe("StarRate Test", () => {
     expect(starRate.childNodes.length === 0).toBe(true);
   });
 
-  test("Pass 0.25 rate, renders 0 stars", () => {
-    const rate = 0.25;
+  test("Pass 1 rate, renders half stars", () => {
+    const rate = 1;
 
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
     // console.log(prettyDOM(spinner));
 
-    expect(starRate.childNodes.length === 0).toBe(true);
+    expect(starRate.lastChild.getAttribute("src") === "halfStar.svg").toBe(
+      true
+    );
   });
 
-  test("Pass 0.5 rate, renders a half star", () => {
-    const rate = 0.5;
+  test("Pass 2 rate, renders a star", () => {
+    const rate = 2;
 
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
     // console.log(prettyDOM(spinner));
 
-    expect(starRate.lastChild.getAttribute('src') === "halfStar.svg").toBe(true);
+    expect(starRate.lastChild.getAttribute("src") === "star.svg").toBe(
+      true
+    );
   });
 
-  test("Pass 0.75 rate, renders a full star", () => {
-    const rate = 0.75;
+  test("Pass 3 rate, renders a one and a half star", () => {
+    const rate = 3;
 
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
     // console.log(prettyDOM(spinner));
-    console.log(starRate.lastChild.getAttribute('src'))
 
-    expect(starRate.lastChild.getAttribute('src') === "star.svg").toBe(true);
+    expect(starRate.firstChild.getAttribute("src") === "star.svg").toBe(true);
+    expect(starRate.lastChild.getAttribute("src") === "halfStar.svg").toBe(true);
   });
 
   test("Pass 10 rate, renders 5 stars", () => {
