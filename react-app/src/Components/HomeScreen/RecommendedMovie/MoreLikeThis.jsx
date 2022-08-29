@@ -58,7 +58,7 @@ function MoreLikeThis({ selectedMovie, secureBaseUrl, backdropSizes }) {
 MoreLikeThis.propTypes = {
   selectedMovie: PropTypes.objectOf(PropTypes.any).isRequired,
   secureBaseUrl: PropTypes.string.isRequired,
-  backdropSizes: PropTypes.string.isRequired,
+  backdropSizes: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default MoreLikeThis;
