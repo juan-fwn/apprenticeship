@@ -20,7 +20,7 @@ function StarRate({ rate, size }) {
   }
 
   return (
-    <>
+    <div data-testid="StarRate" className="flex">
       {starsArray.map((fullStar) => (
         <img
           key={fullStar}
@@ -36,7 +36,7 @@ function StarRate({ rate, size }) {
           className={`mr-2 ${size === "small" ? "w-3 h-3" : ""}`}
         />
       )}
-    </>
+    </div>
   );
 }
 

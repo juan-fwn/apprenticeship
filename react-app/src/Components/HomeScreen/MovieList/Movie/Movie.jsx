@@ -114,7 +114,9 @@ function Movie({
       {listName.length === 0 && (
         <>
           <div className="flex justify-between items-center mt-5">
-            <p className={`text-white text-xl font-semibold ${styles["cut-text"]}`}>
+            <p
+              className={`text-white text-xl font-semibold ${styles["cut-text"]}`}
+            >
               {movie?.original_title?.length > 0
                 ? movie?.original_title
                 : movie?.name}
@@ -123,7 +125,9 @@ function Movie({
               PG 13
             </div>
           </div>
-          <p className={`text-white mt-5 ${styles["limit-lines"]}`}>{movie?.overview}</p>
+          <p className={`text-white mt-5 ${styles["limit-lines"]}`}>
+            {movie?.overview}
+          </p>
         </>
       )}
     </>

@@ -17,8 +17,6 @@ import { RECOMMENDED_MOVIE_NAVBAR } from "../../../constants";
 
 const navBar = Object.keys(RECOMMENDED_MOVIE_NAVBAR);
 
-console.log({ navBar });
-
 function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
   const [selectedNav, setSelectedNav] = useState(
     RECOMMENDED_MOVIE_NAVBAR.OVERVIEW,
