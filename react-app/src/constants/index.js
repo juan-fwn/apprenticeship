@@ -1,0 +1,7 @@
+export const RECOMMENDED_MOVIE_NAVBAR = {
+  OVERVIEW: 0,
+  MORE_LIKE_THIS: 1,
+  DETAILS: 2,
+};
+
+export default { RECOMMENDED_MOVIE_NAVBAR };

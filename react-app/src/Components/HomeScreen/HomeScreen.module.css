@@ -1,0 +1,24 @@
+.background {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 645px) {
+  .background {
+    height: 670px;
+  }
+}
+@media (min-width: 1300px) {
+  .background {
+    height: 700px;
+  }
+}
+@media (min-width: 1650px) {
+  .background {
+    height: 690px;
+  }
+}
+@media (max-width: 640px) {
+  .background {
+    min-height: 23rem;
+  }
+}

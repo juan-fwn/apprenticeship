@@ -1,0 +1,57 @@
+.background {
+  width: 100%;
+  object-fit: cover;
+  transition: ease;
+}
+
+.shadow {
+  display: block;
+  position: absolute;
+  z-index: -20;
+  width: 100%;
+  transition: ease;
+}
+
+.shadow::before {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -moz-box-shadow: inset 0px 0px 34px 34px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: inset 0px 0px 34px 34px rgba(0, 0, 0, 1);
+  box-shadow: inset 0px 0px 34px 34px rgba(0, 0, 0, 1);
+}
+
+@media (min-width: 645px) {
+  .shadow,
+  .background {
+    height: 670px;
+  }
+}
+@media (min-width: 1300px) {
+  .shadow,
+  .background {
+    height: 700px;
+  }
+}
+@media (min-width: 1650px) {
+  .shadow,
+  .background {
+    height: 690px;
+  }
+}
+@media (max-width: 640px) {
+  .shadow,
+  .background {
+    min-height: 23rem;
+  }
+
+  .home {
+    top: 8rem;
+  }
+
+  .trailer {
+    top: 95rem;
+  }
+}
