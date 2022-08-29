@@ -15,9 +15,14 @@ function MovieList({
   setSelectedMovie,
 }) {
   return (
-    <div className={`${styles.mediaScroller} ${listName.length === 0 && styles["no-padding"]}`}>
+    <div
+      className={`${styles.mediaScroller} ${
+        listName.length === 0 && styles["no-padding"]
+      }`}
+    >
       <div className="text-white font-semibold text-lg">{listName}</div>
       <div
+        data-testid="MovieList"
         className={`pt-8 inline-flex flex-row ${
           listName === "Most Viewed" ? "pb-16" : "h-60"
         }`}
@@ -31,7 +36,9 @@ function MovieList({
               listName === "Most Viewed"
                 ? "h-[340px] w-[250px]"
                 : "h-[165px] w-[301px]"
-            } ${listName.length > 0 ? "m-1" : "my-1 mr-10"} ${index === movies.length - 1 ? "mr-20" : ""} ${
+            } ${listName.length > 0 ? "m-1" : "my-1 mr-10"} ${
+              index === movies.length - 1 ? "mr-20" : ""
+            } ${
               selectedMovie?.id === movie?.id ? styles["selected-movie"] : ""
             }`}
           >
