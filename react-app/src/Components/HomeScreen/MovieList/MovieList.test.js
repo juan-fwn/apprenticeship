@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import store from "../../../store";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
-import { prettyDOM } from "@testing-library/dom";
 import MovieList from "./MovieList";
 
 const movies = [
@@ -95,7 +94,6 @@ describe("MovieList Test", () => {
     const component = render(<MovieList {...initialValues} />);
 
     const movieList = component.getByTestId("MovieList");
-    // console.log(prettyDOM(movieList));
 
     expect(movieList.childNodes.length === 0).toBe(true);
   });
@@ -117,7 +115,6 @@ describe("MovieList Test", () => {
     );
 
     const movieList = component.getByTestId("MovieList");
-    // console.log(prettyDOM(movieList));
 
     expect(movieList.childNodes.length === 4).toBe(true);
   });
@@ -141,8 +138,6 @@ describe("MovieList Test", () => {
     const movieList = component.getByTestId("MovieList");
     const thirdMovie = movieList.children.item(2);
     const thirdMovieTittle = thirdMovie.querySelector(".movie-title").textContent;
-    
-    // console.log(prettyDOM(thirdMovie));
 
     expect(thirdMovieTittle).toBe(movies[2].original_name);
   });
@@ -166,7 +161,6 @@ describe("MovieList Test", () => {
     const movieList = component.getByTestId("MovieList");
     const firstMovie = movieList.firstChild;
     const firstMovieImage = firstMovie.querySelector(".image");
-    // console.log(prettyDOM(firstMovieImage));
 
     const firstMovieSrc = `${initialValues.baseUrl}original${movies[0].poster_path}`
 

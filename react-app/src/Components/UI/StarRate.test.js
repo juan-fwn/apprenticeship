@@ -1,7 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
-// import { prettyDOM } from "@testing-library/dom";
 import StarRate from "./StarRate";
 
 describe("StarRate Test", () => {
@@ -11,7 +10,6 @@ describe("StarRate Test", () => {
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
-    // console.log(prettyDOM(spinner));
 
     expect(starRate.childNodes.length === 0).toBe(true);
   });
@@ -22,7 +20,6 @@ describe("StarRate Test", () => {
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
-    // console.log(prettyDOM(spinner));
 
     expect(starRate.lastChild.getAttribute("src") === "halfStar.svg").toBe(
       true
@@ -35,7 +32,6 @@ describe("StarRate Test", () => {
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
-    // console.log(prettyDOM(spinner));
 
     expect(starRate.lastChild.getAttribute("src") === "star.svg").toBe(
       true
@@ -48,7 +44,6 @@ describe("StarRate Test", () => {
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
-    // console.log(prettyDOM(spinner));
 
     expect(starRate.firstChild.getAttribute("src") === "star.svg").toBe(true);
     expect(starRate.lastChild.getAttribute("src") === "halfStar.svg").toBe(true);
@@ -60,7 +55,6 @@ describe("StarRate Test", () => {
     const component = render(<StarRate rate={rate} size={"small"} />);
 
     const starRate = component.getByTestId("StarRate");
-    // console.log(prettyDOM(spinner));
 
     expect(starRate.childNodes.length === 5).toBe(true);
   });
