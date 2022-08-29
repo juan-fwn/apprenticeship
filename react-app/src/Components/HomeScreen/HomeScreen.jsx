@@ -59,7 +59,6 @@ function HomeScreen() {
         serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
           randomMovie.backdrop_path
         }`}
-<<<<<<< HEAD
         type="home"
       />
       <div className={styles.background}>
@@ -107,17 +106,6 @@ function HomeScreen() {
         </div>
       )}
       <Footer />
-=======
-      />
-      <Header open={open} setOpen={setOpen} />
-      <MovieDetails openNav={open} selectedMovie={randomMovie} />
-      <MovieList
-        listName="Popular on Movy"
-        movies={movies}
-        baseUrl={secureBaseUrl}
-        backdropSizes={backdropSizes}
-      />
->>>>>>> react
     </>
   );
 }
