@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import styles from "./Overview.module.css";
 
@@ -20,10 +21,17 @@ function Overview({ selectedMovie, genre }) {
       </div>
       <p className={styles["cut-text"]}>{selectedMovie.overview}</p>
       <div className="flex items-center flex-col sm:flex-row mt-16">
-        <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
-          <img src={watchTrailer} alt="watch-trailer" />
-        </div>
-        <div className="text-[#92AAD7] text-lg self-center">Watch Trailer</div>
+        <Link
+          to={`/trailer/${selectedMovie.id}`}
+          className="flex sm:flex-row flex-col items-center"
+        >
+          <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
+            <img src={watchTrailer} alt="watch-trailer" />
+          </div>
+          <div className="text-[#92AAD7] text-lg self-center">
+            Watch Trailer
+          </div>
+        </Link>
         <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
           <AddFavorite fill="#92AAD7" />
         </div>

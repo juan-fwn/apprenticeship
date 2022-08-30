@@ -101,7 +101,7 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
                     : "relative"
                 }`}
               >
-                {option}
+                {RECOMMENDED_MOVIE_NAVBAR[option]}
               </button>
             );
           })}

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import styles from "./Movie.module.css";
@@ -60,9 +61,12 @@ function Movie({
               </div>
             </div>
             {listName === "Most Viewed" && (
-              <div className="flex justify-center mt-20">
+              <Link
+                to={`/trailer/${movie.id}`}
+                className="flex justify-center mt-20"
+              >
                 <img src={play} alt="Play" className="w-20 h-20" />
-              </div>
+              </Link>
             )}
             <div
               className={`${
@@ -103,9 +107,9 @@ function Movie({
                   <p className="ml-2">Share</p>
                 </div>
               ) : (
-                <div>
+                <Link to={`/trailer/${movie.id}`}>
                   <img src={play} alt="Play" />
-                </div>
+                </Link>
               )}
             </div>
           </div>
@@ -114,7 +118,9 @@ function Movie({
       {listName.length === 0 && (
         <>
           <div className="flex justify-between items-center mt-5">
-            <p className={`text-white text-xl font-semibold ${styles["cut-text"]}`}>
+            <p
+              className={`text-white text-xl font-semibold ${styles["cut-text"]}`}
+            >
               {movie?.original_title?.length > 0
                 ? movie?.original_title
                 : movie?.name}
@@ -123,7 +129,9 @@ function Movie({
               PG 13
             </div>
           </div>
-          <p className={`text-white mt-5 ${styles["limit-lines"]}`}>{movie?.overview}</p>
+          <p className={`text-white mt-5 ${styles["limit-lines"]}`}>
+            {movie?.overview}
+          </p>
         </>
       )}
     </>
