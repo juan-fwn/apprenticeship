@@ -52,7 +52,7 @@ function TrailerPage() {
             </div>
           ) : (
             <iframe
-              src={`https://www.youtube.com/embed/${trailerUrl}`}
+              src={`https://www.youtube.com/embed/${trailerUrl}?autoplay=1&mute=1`}
               title="trailer"
               width="100%"
               height="100%"
