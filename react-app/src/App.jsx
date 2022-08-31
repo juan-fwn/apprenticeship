@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 
 import useRequest from "./hooks/useRequest";
 import HomeScreen from "./Components/HomeScreen";
 import Spinner from "./Components/UI/Spinner";
 import { configurationActions } from "./store/slices/configuration";
 import { moviesActions } from "./store/slices/movies";
+import TrailerPage from "./Components/TrailerPage/TrailerPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +45,18 @@ function App() {
           <Spinner size="large" />
         </div>
       ) : (
-        <HomeScreen />
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="trailer/:movieId" element={<TrailerPage />} />
+          <Route
+            path="*"
+            element={(
+              <p className="text-white font-semibold p-6 rounded-md bg-gray-400 inline-block border-black border">
+                Wrong URL!
+              </p>
+            )}
+          />
+        </Routes>
       )}
     </>
   );

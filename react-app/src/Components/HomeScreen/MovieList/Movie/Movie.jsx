@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import styles from "./Movie.module.css";
@@ -60,9 +61,12 @@ function Movie({
               </div>
             </div>
             {listName === "Most Viewed" && (
-              <div className="flex justify-center mt-20">
+              <Link
+                to={`/trailer/${movie.id}`}
+                className="flex justify-center mt-20"
+              >
                 <img src={play} alt="Play" className="w-20 h-20" />
-              </div>
+              </Link>
             )}
             <div
               className={`${
@@ -103,9 +107,9 @@ function Movie({
                   <p className="ml-2">Share</p>
                 </div>
               ) : (
-                <div>
+                <Link to={`/trailer/${movie.id}`}>
                   <img src={play} alt="Play" />
-                </div>
+                </Link>
               )}
             </div>
           </div>
