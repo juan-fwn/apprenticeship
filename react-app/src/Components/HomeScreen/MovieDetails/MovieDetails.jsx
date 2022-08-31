@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import styles from "./MovieDetails.module.css";
 
@@ -75,12 +76,17 @@ function MovieDetails({ openNav, selectedMovie }) {
             <AddFavorite fill="#92AAD7" />
           </div>
           <div className="text-[#92AAD7] text-lg self-center">Watch Later</div>
-          <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
-            <img src={watchTrailer} alt="watch-trailer" />
-          </div>
-          <div className="text-[#92AAD7] text-lg self-center">
-            Watch Trailer
-          </div>
+          <Link
+            to={`/trailer/${selectedMovie.id}`}
+            className="flex sm:flex-row flex-col items-center"
+          >
+            <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
+              <img src={watchTrailer} alt="watch-trailer" />
+            </div>
+            <div className="text-[#92AAD7] text-lg self-center">
+              Watch Trailer
+            </div>
+          </Link>
           <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
             <img src={imbd} alt="imbd" />
           </div>
