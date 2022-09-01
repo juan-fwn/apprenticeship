@@ -7,7 +7,7 @@ import HomeScreen from "./Components/HomeScreen";
 import Spinner from "./Components/UI/Spinner";
 import { configurationActions } from "./store/slices/configuration";
 import { moviesActions } from "./store/slices/movies";
-import TrailerPage from "./Components/TrailerPage/TrailerPage";
+import TrailerPage from "./Components/TrailerPage";
 
 function App() {
   const dispatch = useDispatch();

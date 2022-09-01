@@ -42,16 +42,20 @@ function HomeScreen() {
   }, [movies]);
 
   useEffect(() => {
-    const requestConfig = {
-      path: "/trending/all/day",
-    };
+    if (movies && movies.length === 0) {
+      const requestConfig = {
+        path: "/trending/all/day",
+      };
 
-    const getMovies = (json) => {
-      dispatch(moviesActions.setMovieList(json.results));
-    };
+      const getMovies = (json) => {
+        if (json.results && json.results.length > 0) {
+          dispatch(moviesActions.setMovieList(json.results));
+        }
+      };
 
-    sendRequest(requestConfig, getMovies);
-  }, []);
+      sendRequest(requestConfig, getMovies);
+    }
+  }, [movies]);
 
   return (
     <>
