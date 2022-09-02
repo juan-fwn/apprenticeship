@@ -15,14 +15,14 @@ function UserLoginScreen() {
 
   const onClickLogInHandler = () => {
     const requestConfig = {
-      path: "/authentication/token/new",
+      path: "/authentication/token/new?",
     };
 
     const applyData = (data) => {
       console.log({ data });
 
       if (data && data.success) {
-        window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/approved`;
+        window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/`;
       }
     };
 

@@ -19,7 +19,7 @@ function TrailerSection({ serieBgImage, movie }) {
   useEffect(() => {
     if (Object.keys(movie).length) {
       const requestConfig = {
-        path: `/movie/${movie?.id}/videos`,
+        path: `/movie/${movie?.id}/videos?`,
       };
 
       const getTrailer = (json) => {

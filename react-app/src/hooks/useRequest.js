@@ -14,7 +14,7 @@ const useRequest = () => {
     setError(null);
     try {
       const response = await fetch(
-        `${baseUrl}${requestConfig.path}?api_key=${token}`,
+        `${baseUrl}${requestConfig.path}api_key=${token}`,
         {
           method: requestConfig.method ? requestConfig.method : "GET",
           headers: requestConfig.headers ? requestConfig.headers : {},

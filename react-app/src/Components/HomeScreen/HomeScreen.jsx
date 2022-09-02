@@ -11,7 +11,7 @@ import TrailerSection from "./TrailerSection";
 import RecommendedMovie from "./RecommendedMovie";
 import Footer from "../UI/Footer";
 
-import { selectors as configSelectors } from "../../store/slices/configuration";
+import { selectors as configSelectors, configurationActions } from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
 import useRequest from "../../hooks/useRequest";
 
@@ -44,7 +44,7 @@ function HomeScreen() {
   useEffect(() => {
     if (movies && movies.length === 0) {
       const requestConfig = {
-        path: "/trending/all/day",
+        path: "/trending/all/day?",
       };
 
       const getMovies = (json) => {
@@ -56,6 +56,30 @@ function HomeScreen() {
       sendRequest(requestConfig, getMovies);
     }
   }, [movies]);
+
+  useEffect(() => {
+    const requestConfig = {
+      path: `/configuration?`,
+    };
+
+    const getImages = (json) => {
+      dispatch(configurationActions.setImagesSettings(json.images));
+    };
+
+    sendRequest(requestConfig, getImages);
+  }, []);
+
+  useEffect(() => {
+    const requestConfig = {
+      path: `/genre/movie/list?`,
+    };
+
+    const getGenres = (json) => {
+      dispatch(moviesActions.setGenreList(json.genres));
+    };
+
+    sendRequest(requestConfig, getGenres);
+  }, []);
 
   return (
     <>
