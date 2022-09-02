@@ -56,3 +56,19 @@
     min-height: 23rem;
   }
 }
+
+@media (min-width: 645px) {
+  .trailer-shadow {
+    height: 670px;
+  }
+}
+@media (min-width: 1300px) {
+  .trailer-shadow {
+    height: 700px;
+  }
+}
+@media (min-width: 1650px) {
+  .trailer-shadow {
+    height: 690px;
+  }
+}
