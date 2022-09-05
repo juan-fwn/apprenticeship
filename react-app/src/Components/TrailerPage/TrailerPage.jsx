@@ -14,7 +14,7 @@ function TrailerPage() {
   useEffect(() => {
     if (movieId) {
       const requestConfig = {
-        path: `/movie/${movieId}/videos`,
+        path: `/movie/${movieId}/videos?`,
       };
 
       const getTrailer = (json) => {

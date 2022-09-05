@@ -1,42 +1,47 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 
 import useRequest from "./hooks/useRequest";
 import HomeScreen from "./Components/HomeScreen";
+import UserLoginScreen from "./Components/UserLoginScreen";
 import Spinner from "./Components/UI/Spinner";
-import { configurationActions } from "./store/slices/configuration";
-import { moviesActions } from "./store/slices/movies";
 import TrailerPage from "./Components/TrailerPage";
 
 function App() {
-  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
 
   const { isLoading, sendRequest } = useRequest();
 
+  const requestToken = searchParams.get("request_token");
+  const approved = searchParams.get("approved");
+
+  const getCookie = (key) => {
+    const cookies = document.cookie;
+    const cookieArray = cookies.split(";");
+    const foundCookie = cookieArray.find((cookie) => cookie.includes(key));
+
+    if (foundCookie) {
+      return foundCookie.split("=")[1];
+    }
+    return "";
+  };
+
   useEffect(() => {
-    const requestConfig = {
-      path: `/configuration`,
-    };
+    if (getCookie("session_id").length === 0 && approved) {
+      const requestConfig = {
+        path: `/authentication/session/new?request_token=${requestToken}&`,
+        method: "POST",
+      };
 
-    const getImages = (json) => {
-      dispatch(configurationActions.setImagesSettings(json.images));
-    };
+      const getIdSession = (json) => {
+        if (json.success) {
+          document.cookie = `session_id=${json.session_id}`;
+        }
+      };
 
-    sendRequest(requestConfig, getImages);
-  }, []);
-
-  useEffect(() => {
-    const requestConfig = {
-      path: `/genre/movie/list`,
-    };
-
-    const getGenres = (json) => {
-      dispatch(moviesActions.setGenreList(json.genres));
-    };
-
-    sendRequest(requestConfig, getGenres);
-  }, []);
+      sendRequest(requestConfig, getIdSession);
+    }
+  }, [requestToken, approved]);
 
   return (
     <>
@@ -46,14 +51,19 @@ function App() {
         </div>
       ) : (
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route
+            path="/"
+            element={getCookie("session_id").length > 0 ? <HomeScreen /> : <UserLoginScreen />}
+          />
           <Route path="trailer/:movieId" element={<TrailerPage />} />
           <Route
             path="*"
             element={(
-              <p className="text-white font-semibold p-6 rounded-md bg-gray-400 inline-block border-black border">
-                Wrong URL!
-              </p>
+              <div className="w-screen h-screen flex justify-center items-center">
+                <p className="text-white font-semibold px-10 py-6 rounded-md bg-gray-400 inline-block border-black border">
+                  Wrong URL!
+                </p>
+              </div>
             )}
           />
         </Routes>

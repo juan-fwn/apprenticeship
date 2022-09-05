@@ -17,7 +17,7 @@ function MoreLikeThis({ selectedMovie, secureBaseUrl, backdropSizes }) {
 
   useEffect(() => {
     const requestConfig = {
-      path: `/movie/${selectedMovie.id}/similar`,
+      path: `/movie/${selectedMovie.id}/similar?`,
     };
 
     const getSimilarMovies = (json) => {

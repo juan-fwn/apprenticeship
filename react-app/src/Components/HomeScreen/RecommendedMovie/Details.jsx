@@ -25,7 +25,7 @@ function Details({ selectedMovie }) {
 
   useEffect(() => {
     const requestConfig = {
-      path: `/movie/${selectedMovie.id}/credits`,
+      path: `/movie/${selectedMovie.id}/credits?`,
     };
 
     const getMovieCredits = (json) => {
