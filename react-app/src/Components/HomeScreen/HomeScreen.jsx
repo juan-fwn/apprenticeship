@@ -11,7 +11,10 @@ import TrailerSection from "./TrailerSection";
 import RecommendedMovie from "./RecommendedMovie";
 import Footer from "../UI/Footer";
 
-import { selectors as configSelectors, configurationActions } from "../../store/slices/configuration";
+import {
+  selectors as configSelectors,
+  configurationActions,
+} from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
 import useRequest from "../../hooks/useRequest";
 
@@ -93,7 +96,7 @@ function HomeScreen() {
         <Header open={open} setOpen={setOpen} />
         <MovieDetails openNav={open} selectedMovie={randomMovie} />
       </div>
-      <div className="my-14">
+      <div className={`my-14 ${open && "mt-40"}`}>
         <MovieList
           listName="Popular on Movy"
           movies={movies}
@@ -133,7 +136,9 @@ function HomeScreen() {
           />
         </div>
       )}
-      <Footer />
+      <div className="mt-16">
+        <Footer />
+      </div>
     </>
   );
 }

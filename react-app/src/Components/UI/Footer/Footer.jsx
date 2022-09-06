@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="lg:p-28 md:px-12 md:py-28 px-4 py-16 transition-all duration-500 ease-in">
+    <div className="lg:p-28 lg:pt-10 md:px-12 md:py-28 px-4 py-16 transition-all duration-500 ease-in">
       <p className="text-white sm:text-2xl text-xl">
         Questions? Call +1 (408) 600-1722 (USA)
       </p>

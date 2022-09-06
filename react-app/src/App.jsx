@@ -6,6 +6,7 @@ import HomeScreen from "./Components/HomeScreen";
 import UserLoginScreen from "./Components/UserLoginScreen";
 import Spinner from "./Components/UI/Spinner";
 import TrailerPage from "./Components/TrailerPage";
+import UserProfile from "./Components/UserProfile";
 
 function App() {
   const [searchParams] = useSearchParams();
@@ -55,6 +56,7 @@ function App() {
             path="/"
             element={getCookie("session_id").length > 0 ? <HomeScreen /> : <UserLoginScreen />}
           />
+          <Route path="profile" element={<UserProfile />} />
           <Route path="trailer/:movieId" element={<TrailerPage />} />
           <Route
             path="*"
