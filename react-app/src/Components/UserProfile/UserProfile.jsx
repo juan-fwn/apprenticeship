@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./UserProfile.module.css";
 
 import movy from "../../assets/movy.svg";
 import profile from "../../assets/profile.svg";
 
-import useRequest from "../../hooks/useRequest";
-
-import { userActions } from "../../store/slices/user";
+import { selectors, userActions } from "../../store/slices/user";
 
 const languages = ["English", "Español"];
 const parentControl = ["All maturity levels", "Child content"];
@@ -18,67 +16,13 @@ function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
+  const user = useSelector(selectors.getUser);
+
+  const [name, setName] = useState(user.name);
   const [errorName, setErrorName] = useState(false);
-  const [kid, setKid] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
-  const [includeAdult, setIncludeAdult] = useState("All maturity leves");
-  const [avatar, setAvatar] = useState(null);
-
-  const { sendRequest } = useRequest();
-
-  const getCookie = (key) => {
-    const cookies = document.cookie;
-    const cookieArray = cookies.split(";");
-    const foundCookie = cookieArray.find((cookie) => cookie.includes(key));
-
-    if (foundCookie) {
-      return foundCookie.split("=")[1];
-    }
-    return "";
-  };
-
-  useEffect(() => {
-    const requestConfig = {
-      path: `/account?session_id=${getCookie("session_id")}&`,
-    };
-
-    const saveData = (data) => {
-      if (data) {
-        setName(data.name);
-        setKid(!data.include_adult);
-        setIncludeAdult(
-          data.include_adult ? "All maturity levels" : "Child content",
-        );
-        setAvatar(data.avatar.tmdb.avatar_path);
-      }
-
-      const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-
-      if (
-        Object.keys(userProfile).length >= 0
-        && getCookie("session_id") === userProfile.idSession
-      ) {
-        setName(userProfile.name);
-        setSelectedLanguage(userProfile.language);
-        setKid(!userProfile.include_adult);
-        setIncludeAdult(
-          userProfile.include_adult ? "All maturity levels" : "Child content",
-        );
-      }
-    };
-
-    dispatch(
-      userActions.setUser({
-        name,
-        selectedLanguage,
-        includeAdult: !kid,
-        avatar,
-      }),
-    );
-
-    sendRequest(requestConfig, saveData);
-  }, []);
+  const [kid, setKid] = useState(user.includeAdult);
+  const [selectedLanguage, setSelectedLanguage] = useState(user.selectedLanguage || "English");
+  const [includeAdult, setIncludeAdult] = useState(!user.includeAdult ? "All maturity levels" : "Child content");
 
   const onChangeNameHandler = (e) => {
     setName(e.target.value);
@@ -108,13 +52,24 @@ function UserProfile() {
     }
 
     const userProfile = {
-      idSession: getCookie("session_id"),
+      username: "username",
       name,
       language: selectedLanguage,
-      include_adult: !kid,
+      include_adult: kid,
     };
 
     localStorage.setItem("userProfile", JSON.stringify(userProfile));
+
+    dispatch(
+      userActions.setUser({
+        ...user,
+        name,
+        selectedLanguage,
+        includeAdult: kid,
+      }),
+    );
+
+    navigate("/");
   };
 
   return (
@@ -131,7 +86,7 @@ function UserProfile() {
             <div className="bg-white max-h-[165px] max-w-[165px] flex-shrink-0 self-center sm:self-start mb-10 sm:mb-0">
               <img
                 src={
-                  avatar ? `https://image.tmdb.org/t/p/w200/${avatar}` : profile
+                  user.avatar ? `https://image.tmdb.org/t/p/w200/${user.avatar}` : profile
                 }
                 alt="Profile"
               />
