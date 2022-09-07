@@ -80,8 +80,8 @@ function RecommendedMovie({ selectedMovie, setSelectedMovie }) {
           Film
         </p>
         <p className="text-white text-5xl font-semibold mt-5">
-          {selectedMovie?.original_title?.length > 0
-            ? selectedMovie?.original_title
+          {selectedMovie?.title?.length > 0
+            ? selectedMovie?.title
             : selectedMovie?.name}
         </p>
         {getSectionContent(selectedNav)}

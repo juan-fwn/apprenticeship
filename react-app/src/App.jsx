@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useSearchParams } from "react-router-dom";
 
+import { getCookie } from "./utils";
+
 import useRequest from "./hooks/useRequest";
 import HomeScreen from "./Components/HomeScreen";
 import UserLoginScreen from "./Components/UserLoginScreen";
@@ -15,17 +17,6 @@ function App() {
 
   const requestToken = searchParams.get("request_token");
   const approved = searchParams.get("approved");
-
-  const getCookie = (key) => {
-    const cookies = document.cookie;
-    const cookieArray = cookies.split(";");
-    const foundCookie = cookieArray.find((cookie) => cookie.includes(key));
-
-    if (foundCookie) {
-      return foundCookie.split("=")[1];
-    }
-    return "";
-  };
 
   useEffect(() => {
     if (getCookie("session_id").length === 0 && approved) {

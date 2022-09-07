@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./Movie.module.css";
 
@@ -11,17 +11,35 @@ import play from "../../../../assets/play.svg";
 import StarRate from "../../../UI/StarRate";
 
 import { selectors } from "../../../../store/slices/movies";
+import useRequest from "../../../../hooks/useRequest";
+import {
+  addFavoriteMovie,
+  addAlreadySawTrailers,
+} from "../../../../store/actions/movies";
 
 function Movie({
   movie, baseUrl, fileSize, listName,
 }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const genres = useSelector(selectors.getGenres);
+  const { sendRequest } = useRequest();
 
   const genreList = movie?.genre_ids
     ?.filter((id) => genres.some((genre) => genre.id === id))
     .map((genreId) => genres.find((genre) => genre.id === genreId)?.name);
 
   const genrePlainText = genreList?.join(" • ");
+
+  const onClickAddFavoriteMovieHandler = (e) => {
+    e.stopPropagation();
+    dispatch(addFavoriteMovie(sendRequest, movie, !(listName === "My List")));
+  };
+
+  const onClickWatchTrailerHandler = () => {
+    dispatch(addAlreadySawTrailers(movie));
+    navigate(`/trailer/${movie.id}`);
+  };
 
   return (
     <>
@@ -43,11 +61,15 @@ function Movie({
           <div className={styles["image-overlay"]}>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center">
-                {listName === "Popular on Movy" && (
+                {(listName === "Popular on Movy" || listName === "My List") && (
                   <>
-                    <div className="inline-block">
+                    <button
+                      type="button"
+                      className="inline-block add-favorite"
+                      onClick={onClickAddFavoriteMovieHandler}
+                    >
                       <AddFavorite fill="#aba2a2" />
-                    </div>
+                    </button>
                     <div className="inline-block ml-2">
                       <Share fill="#aba2a2" />
                     </div>
@@ -61,12 +83,9 @@ function Movie({
               </div>
             </div>
             {listName === "Most Viewed" && (
-              <Link
-                to={`/trailer/${movie.id}`}
-                className="flex justify-center mt-20"
-              >
+              <div className="flex justify-center mt-20">
                 <img src={play} alt="Play" className="w-20 h-20" />
-              </Link>
+              </div>
             )}
             <div
               className={`${
@@ -80,9 +99,7 @@ function Movie({
                   && styles["movie-title-most-viewed"]
                 }`}
               >
-                {movie?.original_title?.length > 0
-                  ? movie?.original_title
-                  : movie?.name}
+                {movie?.title?.length > 0 ? movie?.title : movie?.name}
               </div>
               <div className="pt-3 inline-block">
                 <div className="flex">
@@ -92,10 +109,14 @@ function Movie({
             </div>
             <div className="pt-2 text-white text-sm flex justify-between items-center">
               {listName === "Most Viewed" ? (
-                <div className="flex items-center">
+                <button
+                  type="button"
+                  className="flex items-center add-favorite"
+                  onClick={onClickAddFavoriteMovieHandler}
+                >
                   <AddFavorite fill="#aba2a2" />
                   <p className="ml-2">Watch Later</p>
-                </div>
+                </button>
               ) : (
                 <p className={styles["cut-text"]}>
                   {genrePlainText?.length > 0 ? genrePlainText : ""}
@@ -107,9 +128,12 @@ function Movie({
                   <p className="ml-2">Share</p>
                 </div>
               ) : (
-                <Link to={`/trailer/${movie.id}`}>
+                <button
+                  type="button"
+                  onClick={onClickWatchTrailerHandler}
+                >
                   <img src={play} alt="Play" />
-                </Link>
+                </button>
               )}
             </div>
           </div>
@@ -121,9 +145,7 @@ function Movie({
             <p
               className={`text-white text-xl font-semibold ${styles["cut-text"]}`}
             >
-              {movie?.original_title?.length > 0
-                ? movie?.original_title
-                : movie?.name}
+              {movie?.title?.length > 0 ? movie?.title : movie?.name}
             </p>
             <div className="border rounded-3xl border-[#aba2a2] text-xs w-16 h-7 flex justify-center items-center text-[#aba2a2] font-semibold sm:self-end self-start">
               PG 13

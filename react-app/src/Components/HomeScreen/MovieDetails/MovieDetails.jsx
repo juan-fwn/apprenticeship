@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./MovieDetails.module.css";
 
@@ -14,8 +14,15 @@ import volume from "../../../assets/volume.svg";
 import StarRate from "../../UI/StarRate";
 
 import { selectors } from "../../../store/slices/movies";
+import { addFavoriteMovie, addAlreadySawTrailers } from "../../../store/actions/movies";
+import useRequest from "../../../hooks/useRequest";
 
 function MovieDetails({ openNav, selectedMovie }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { sendRequest } = useRequest();
+
   const genres = useSelector(selectors.getGenres);
 
   const movieYear = new Date(
@@ -27,6 +34,15 @@ function MovieDetails({ openNav, selectedMovie }) {
     .map((genreId) => genres.find((genre) => genre.id === genreId)?.name);
 
   const genrePlainText = genreList?.join(", ");
+
+  const onClickWatchLaterHandler = () => {
+    dispatch(addFavoriteMovie(sendRequest, selectedMovie));
+  };
+
+  const onClickWatchTrailerHandler = () => {
+    dispatch(addAlreadySawTrailers(selectedMovie));
+    navigate(`/trailer/${selectedMovie.id}`);
+  };
 
   return (
     <div
@@ -45,8 +61,8 @@ function MovieDetails({ openNav, selectedMovie }) {
       </div>
       <div className="flex justify-between mt-8 flex-col sm:flex-row">
         <p className="w-3/4 sm:text-5xl text-4xl font-bold text-white">
-          {selectedMovie?.original_title?.length > 0
-            ? selectedMovie.original_title
+          {selectedMovie?.title?.length > 0
+            ? selectedMovie.title
             : selectedMovie.name}
         </p>
         <div className="border rounded-3xl border-white sm:text-xl text-base sm:w-24 w-20 h-8 flex justify-center items-center text-white font-semibold sm:self-end self-start sm:mt-0 mt-4">
@@ -72,21 +88,30 @@ function MovieDetails({ openNav, selectedMovie }) {
       </p>
       <div className="flex sm:flex-row flex-col sm:justify-between mt-8 sm:mt-28">
         <div className="flex items-center flex-col sm:flex-row">
-          <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
-            <AddFavorite fill="#92AAD7" />
-          </div>
-          <div className="text-[#92AAD7] text-lg self-center">Watch Later</div>
-          <Link
-            to={`/trailer/${selectedMovie.id}`}
+          <button
+            type="button"
             className="flex sm:flex-row flex-col items-center"
+            onClick={onClickWatchLaterHandler}
           >
-            <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
+            <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
+              <AddFavorite fill="#92AAD7" />
+            </div>
+            <div className="text-[#92AAD7] text-lg self-center">
+              Watch Later
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={onClickWatchTrailerHandler}
+            className="flex sm:flex-row flex-col items-center sm:ml-14"
+          >
+            <div className="mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
               <img src={watchTrailer} alt="watch-trailer" />
             </div>
             <div className="text-[#92AAD7] text-lg self-center">
               Watch Trailer
             </div>
-          </Link>
+          </button>
           <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
             <img src={imbd} alt="imbd" />
           </div>

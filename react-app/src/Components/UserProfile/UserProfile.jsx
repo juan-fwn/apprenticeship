@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import styles from "./UserProfile.module.css";
-
 import movy from "../../assets/movy.svg";
 import profile from "../../assets/profile.svg";
 
@@ -73,8 +71,8 @@ function UserProfile() {
   };
 
   return (
-    <>
-      <form className={styles.body} onSubmit={onSubmitHandler}>
+    <div className="w-screen h-screen bg-[#111111]">
+      <form onSubmit={onSubmitHandler}>
         <nav className="flex items-center sm:ml-24 ml-2 sm:mr-14 mr-2 sm:pt-10 pt-6">
           <img src={movy} alt="Movy Logo" />
         </nav>
@@ -166,7 +164,7 @@ function UserProfile() {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
