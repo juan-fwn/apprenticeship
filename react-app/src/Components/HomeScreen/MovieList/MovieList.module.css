@@ -1,0 +1,25 @@
+.mediaScroller {
+  padding: 1.4rem 6rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.mediaScroller::-webkit-scrollbar {
+  width: 0;
+}
+
+.selected-movie {
+  position: relative;
+  border: 4px solid white;
+}
+
+.triangle {
+  position: absolute;
+  bottom: -1.6rem;
+  left: 35%;
+}
+
+.no-padding {
+  padding: 0;
+  height: 22.5rem;
+}
