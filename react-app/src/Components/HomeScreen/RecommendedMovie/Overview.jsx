@@ -21,6 +21,15 @@ function Overview({ selectedMovie, genre }) {
   const dispatch = useDispatch();
   const { sendRequest } = useRequest();
 
+  const onClickWatchTrailerHandler = () => {
+    dispatch(addAlreadySawTrailers(selectedMovie));
+    navigate(`/trailer/${selectedMovie.id}`);
+  };
+
+  const onClickAddFavoriteMovieHandler = () => {
+    dispatch(addFavoriteMovie(sendRequest, selectedMovie));
+  };
+
   return (
     <>
       <div className="mt-10 flex items-center">
@@ -33,10 +42,7 @@ function Overview({ selectedMovie, genre }) {
       <div className="flex items-center flex-col sm:flex-row mt-16">
         <button
           type="button"
-          onClick={() => {
-            dispatch(addAlreadySawTrailers(selectedMovie));
-            navigate(`/trailer/${selectedMovie.id}`);
-          }}
+          onClick={onClickWatchTrailerHandler}
           className="flex sm:flex-row flex-col items-center"
         >
           <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
@@ -49,7 +55,7 @@ function Overview({ selectedMovie, genre }) {
         <button
           type="button"
           className="flex items-center flex-col sm:flex-row sm:ml-14 "
-          onClick={() => dispatch(addFavoriteMovie(sendRequest, selectedMovie))}
+          onClick={onClickAddFavoriteMovieHandler}
         >
           <div className="mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
             <AddFavorite fill="#92AAD7" />

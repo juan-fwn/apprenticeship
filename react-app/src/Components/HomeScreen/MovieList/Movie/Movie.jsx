@@ -31,6 +31,16 @@ function Movie({
 
   const genrePlainText = genreList?.join(" • ");
 
+  const onClickAddFavoriteMovieHandler = (e) => {
+    e.stopPropagation();
+    dispatch(addFavoriteMovie(sendRequest, movie, !(listName === "My List")));
+  };
+
+  const onClickWatchTrailerHandler = () => {
+    dispatch(addAlreadySawTrailers(movie));
+    navigate(`/trailer/${movie.id}`);
+  };
+
   return (
     <>
       <div
@@ -56,16 +66,7 @@ function Movie({
                     <button
                       type="button"
                       className="inline-block add-favorite"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        dispatch(
-                          addFavoriteMovie(
-                            sendRequest,
-                            movie,
-                            !(listName === "My List"),
-                          ),
-                        );
-                      }}
+                      onClick={onClickAddFavoriteMovieHandler}
                     >
                       <AddFavorite fill="#aba2a2" />
                     </button>
@@ -111,10 +112,7 @@ function Movie({
                 <button
                   type="button"
                   className="flex items-center add-favorite"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    dispatch(addFavoriteMovie(sendRequest, movie));
-                  }}
+                  onClick={onClickAddFavoriteMovieHandler}
                 >
                   <AddFavorite fill="#aba2a2" />
                   <p className="ml-2">Watch Later</p>
@@ -132,10 +130,7 @@ function Movie({
               ) : (
                 <button
                   type="button"
-                  onClick={() => {
-                    dispatch(addAlreadySawTrailers(movie));
-                    navigate(`/trailer/${movie.id}`);
-                  }}
+                  onClick={onClickWatchTrailerHandler}
                 >
                   <img src={play} alt="Play" />
                 </button>

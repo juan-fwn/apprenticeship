@@ -98,7 +98,7 @@ export const getFavoriteMovies = (sendRequest) => {
   };
 };
 
-export const addFavoriteMovie = (sendRequest, movie, favorite) => {
+export const addFavoriteMovie = (sendRequest, movie, favorite = true) => {
   return async (dispatch, getState) => {
     const {
       movies: { favoriteMovies },

@@ -35,6 +35,15 @@ function MovieDetails({ openNav, selectedMovie }) {
 
   const genrePlainText = genreList?.join(", ");
 
+  const onClickWatchLaterHandler = () => {
+    dispatch(addFavoriteMovie(sendRequest, selectedMovie));
+  };
+
+  const onClickWatchTrailerHandler = () => {
+    dispatch(addAlreadySawTrailers(selectedMovie));
+    navigate(`/trailer/${selectedMovie.id}`);
+  };
+
   return (
     <div
       className={`mx-16 md:mx-36 xl:mx-64 ${
@@ -82,7 +91,7 @@ function MovieDetails({ openNav, selectedMovie }) {
           <button
             type="button"
             className="flex sm:flex-row flex-col items-center"
-            onClick={() => dispatch(addFavoriteMovie(sendRequest, selectedMovie))}
+            onClick={onClickWatchLaterHandler}
           >
             <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
               <AddFavorite fill="#92AAD7" />
@@ -93,10 +102,7 @@ function MovieDetails({ openNav, selectedMovie }) {
           </button>
           <button
             type="button"
-            onClick={() => {
-              dispatch(addAlreadySawTrailers(selectedMovie));
-              navigate(`/trailer/${selectedMovie.id}`);
-            }}
+            onClick={onClickWatchTrailerHandler}
             className="flex sm:flex-row flex-col items-center sm:ml-14"
           >
             <div className="mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">

@@ -11,13 +11,17 @@ import Spinner from "../../UI/Spinner";
 import imbd from "../../../assets/imbd.svg";
 
 import useRequest from "../../../hooks/useRequest";
-import { moviesActions } from "../../../store/slices/movies";
+import { addFavoriteMovie } from "../../../store/actions/movies";
 
 function TrailerSection({ serieBgImage, movie }) {
   const dispatch = useDispatch();
   const [trailerUrl, setTrailerUrl] = useState("");
 
   const { isLoading, sendRequest } = useRequest();
+
+  const onClickAddFavoriteMovieHandler = () => {
+    dispatch(addFavoriteMovie(sendRequest, movie));
+  };
 
   useEffect(() => {
     if (Object.keys(movie).length) {
@@ -86,7 +90,7 @@ function TrailerSection({ serieBgImage, movie }) {
             <button
               type="button"
               className={styles.button}
-              onClick={() => dispatch(moviesActions.addFavoriteMovie(movie))}
+              onClick={onClickAddFavoriteMovieHandler}
             >
               <div className="mr-4">
                 <AddFavorite fill="#92AAD7" />
