@@ -55,8 +55,17 @@ function Movie({
                   <>
                     <button
                       type="button"
-                      className="inline-block"
-                      onClick={() => dispatch(addFavoriteMovie(sendRequest, movie, listName === "Popular on Movy"))}
+                      className="inline-block add-favorite"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(
+                          addFavoriteMovie(
+                            sendRequest,
+                            movie,
+                            !(listName === "My List"),
+                          ),
+                        );
+                      }}
                     >
                       <AddFavorite fill="#aba2a2" />
                     </button>
@@ -74,15 +83,7 @@ function Movie({
             </div>
             {listName === "Most Viewed" && (
               <div className="flex justify-center mt-20">
-                <button
-                  type="button"
-                  onClick={() => {
-                    dispatch(addAlreadySawTrailers(movie));
-                    navigate(`/trailer/${movie.id}`);
-                  }}
-                >
-                  <img src={play} alt="Play" className="w-20 h-20" />
-                </button>
+                <img src={play} alt="Play" className="w-20 h-20" />
               </div>
             )}
             <div
@@ -109,8 +110,11 @@ function Movie({
               {listName === "Most Viewed" ? (
                 <button
                   type="button"
-                  className="flex items-center"
-                  onClick={() => dispatch(addFavoriteMovie(sendRequest, movie))}
+                  className="flex items-center add-favorite"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(addFavoriteMovie(sendRequest, movie));
+                  }}
                 >
                   <AddFavorite fill="#aba2a2" />
                   <p className="ml-2">Watch Later</p>
