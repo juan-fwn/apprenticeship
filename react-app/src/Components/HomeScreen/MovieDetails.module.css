@@ -1,0 +1,10 @@
+.cut-text {
+  color: white;
+  font-size: 1.125rem;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

@@ -2,23 +2,29 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-@media (min-width: 645px) {
+@media (min-width: 640px) {
   .background {
-    height: 670px;
+    min-height: 48rem;
   }
 }
-@media (min-width: 1300px) {
+@media (min-width: 890px) {
   .background {
-    height: 700px;
+    min-height: 44rem;
   }
 }
-@media (min-width: 1650px) {
+@media (min-width: 1400px) {
   .background {
-    height: 690px;
+    max-height: 47rem;
+  }
+}
+@media (min-width: 2090px) {
+  .background {
+    max-height: 10rem;
   }
 }
 @media (max-width: 640px) {
   .background {
+    top: 8rem;
     min-height: 23rem;
   }
 }

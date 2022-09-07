@@ -31,7 +31,7 @@ function UserLoginScreen() {
 
   return (
     <>
-      <div className={`${styles.shadows}`}>
+      <div className={`${styles.shadow}`}>
         <img
           src={login}
           alt="Background"
