@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import styles from "./Overview.module.css";
 
@@ -9,8 +10,17 @@ import { ReactComponent as Share } from "../../../assets/share.svg";
 import watchTrailer from "../../../assets/watchTrailer.svg";
 
 import StarRate from "../../UI/StarRate";
+import useRequest from "../../../hooks/useRequest";
+import {
+  addFavoriteMovie,
+  addAlreadySawTrailers,
+} from "../../../store/actions/movies";
 
 function Overview({ selectedMovie, genre }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { sendRequest } = useRequest();
+
   return (
     <>
       <div className="mt-10 flex items-center">
@@ -21,8 +31,12 @@ function Overview({ selectedMovie, genre }) {
       </div>
       <p className={styles["cut-text"]}>{selectedMovie.overview}</p>
       <div className="flex items-center flex-col sm:flex-row mt-16">
-        <Link
-          to={`/trailer/${selectedMovie.id}`}
+        <button
+          type="button"
+          onClick={() => {
+            dispatch(addAlreadySawTrailers(selectedMovie));
+            navigate(`/trailer/${selectedMovie.id}`);
+          }}
           className="flex sm:flex-row flex-col items-center"
         >
           <div className="sm:ml-0 mx-auto sm:mr-4 sm:mt-0 mt-7 sm:mb-0 mb-3">
@@ -31,11 +45,17 @@ function Overview({ selectedMovie, genre }) {
           <div className="text-[#92AAD7] text-lg self-center">
             Watch Trailer
           </div>
-        </Link>
-        <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
-          <AddFavorite fill="#92AAD7" />
-        </div>
-        <div className="text-[#92AAD7] text-lg self-center">Watch Later</div>
+        </button>
+        <button
+          type="button"
+          className="flex items-center flex-col sm:flex-row sm:ml-14 "
+          onClick={() => dispatch(addFavoriteMovie(sendRequest, selectedMovie))}
+        >
+          <div className="mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
+            <AddFavorite fill="#92AAD7" />
+          </div>
+          <div className="text-[#92AAD7] text-lg self-center">Watch Later</div>
+        </button>
         <div className="sm:ml-14 mx-auto sm:mr-3 sm:mt-0 mt-7 sm:mb-0 mb-3">
           <Share fill="#92AAD7" />
         </div>

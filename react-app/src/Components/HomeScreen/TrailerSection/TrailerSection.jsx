@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
 import styles from "./TrailerSection.module.css";
 
@@ -10,8 +11,10 @@ import Spinner from "../../UI/Spinner";
 import imbd from "../../../assets/imbd.svg";
 
 import useRequest from "../../../hooks/useRequest";
+import { moviesActions } from "../../../store/slices/movies";
 
 function TrailerSection({ serieBgImage, movie }) {
+  const dispatch = useDispatch();
   const [trailerUrl, setTrailerUrl] = useState("");
 
   const { isLoading, sendRequest } = useRequest();
@@ -75,12 +78,16 @@ function TrailerSection({ serieBgImage, movie }) {
             </div>
           </div>
           <p className="text-white font-semibold pt-7 sm:text-6xl text-4xl">
-            {movie?.original_title?.length > 0
-              ? movie.original_title
+            {movie?.title?.length > 0
+              ? movie.title
               : movie.name}
           </p>
           <div className="pt-9 flex items-center">
-            <button type="button" className={styles.button}>
+            <button
+              type="button"
+              className={styles.button}
+              onClick={() => dispatch(moviesActions.addFavoriteMovie(movie))}
+            >
               <div className="mr-4">
                 <AddFavorite fill="#92AAD7" />
               </div>

@@ -16,7 +16,14 @@ import {
   configurationActions,
 } from "../../store/slices/configuration";
 import { moviesActions, selectors } from "../../store/slices/movies";
-import { userActions } from "../../store/slices/user";
+import { selectors as userSelector } from "../../store/slices/user";
+import {
+  getPopularMovies,
+  getTopRatedMovies,
+  getFavoriteMovies,
+  getUserProfile,
+  getRecommendedMovies,
+} from "../../store/actions/movies";
 import useRequest from "../../hooks/useRequest";
 import Spinner from "../UI/Spinner";
 
@@ -25,7 +32,12 @@ function HomeScreen() {
 
   const [open, setOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const movies = useSelector(selectors.getMovies);
+  const popularMovies = useSelector(selectors.getPopularMovies);
+  const topRatedMovies = useSelector(selectors.getTopRatedMovies);
+  const recommendedMovies = useSelector(selectors.getRecommendedMovies);
+  const favoriteMovies = useSelector(selectors.getFavoriteMovies);
+  const alreadySawTrailers = useSelector(selectors.getAlreadySawTrailers);
+  const user = useSelector(userSelector.getUser);
 
   const imageSettings = useSelector(configSelectors.getImageSettings);
   const {
@@ -40,38 +52,41 @@ function HomeScreen() {
   }
 
   const randomMovie = React.useMemo(() => {
-    return movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
-  }, [movies]);
+    return popularMovies.length > 0
+      ? popularMovies[getRandomInt(popularMovies.length)]
+      : {};
+  }, [popularMovies]);
   const randomMovieTrailer = React.useMemo(() => {
-    return movies.length > 0 ? movies[getRandomInt(movies.length)] : {};
-  }, [movies]);
+    return topRatedMovies.length > 0
+      ? topRatedMovies[getRandomInt(topRatedMovies.length)]
+      : {};
+  }, [topRatedMovies]);
 
-  const getCookie = (key) => {
-    const cookies = document.cookie;
-    const cookieArray = cookies.split(";");
-    const foundCookie = cookieArray.find((cookie) => cookie.includes(key));
-
-    if (foundCookie) {
-      return foundCookie.split("=")[1];
-    }
-    return "";
-  };
+  const { id: accountId } = user;
 
   useEffect(() => {
-    if (movies && movies.length === 0) {
-      const requestConfig = {
-        path: "/trending/all/day?",
-      };
-
-      const getMovies = (json) => {
-        if (json.results && json.results.length > 0) {
-          dispatch(moviesActions.setMovieList(json.results));
-        }
-      };
-
-      sendRequest(requestConfig, getMovies);
+    if (accountId) {
+      dispatch(getFavoriteMovies(sendRequest));
     }
-  }, [movies]);
+  }, [accountId]);
+
+  useEffect(() => {
+    if (popularMovies && popularMovies.length === 0) {
+      dispatch(getPopularMovies(sendRequest));
+    }
+  }, [popularMovies]);
+
+  useEffect(() => {
+    if (topRatedMovies && topRatedMovies.length === 0) {
+      dispatch(getTopRatedMovies(sendRequest));
+    }
+  }, [topRatedMovies]);
+
+  useEffect(() => {
+    if (recommendedMovies && recommendedMovies.length === 0) {
+      dispatch(getRecommendedMovies(sendRequest));
+    }
+  }, [recommendedMovies]);
 
   useEffect(() => {
     const requestConfig = {
@@ -100,25 +115,13 @@ function HomeScreen() {
   useEffect(() => {
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
 
-    if (!userProfile || Object.keys(userProfile).length === 0) {
-      const requestConfig = {
-        path: `/account?session_id=${getCookie("session_id")}&`,
-      };
-
-      const saveData = (data) => {
-        if (data) {
-          dispatch(
-            userActions.setUser({
-              username: data.username,
-              name: data.name,
-              includeAdult: data.include_adult,
-              avatar: data.avatar.tmdb.avatar_path,
-            }),
-          );
-        }
-      };
-
-      sendRequest(requestConfig, saveData);
+    if (
+      !userProfile
+      || Object.keys(userProfile).length === 0
+      || !user
+      || Object.keys(user).length === 0
+    ) {
+      dispatch(getUserProfile(sendRequest));
     }
   }, []);
 
@@ -140,38 +143,64 @@ function HomeScreen() {
             <Header open={open} setOpen={setOpen} />
             <MovieDetails openNav={open} selectedMovie={randomMovie} />
           </div>
-          <div className={`my-14 ${open && "mt-40"}`}>
-            <MovieList
-              listName="Popular on Movy"
-              movies={movies}
-              baseUrl={secureBaseUrl}
-              backdropSizes={backdropSizes}
-            />
-          </div>
+          {favoriteMovies && favoriteMovies.length > 0 && (
+            <div className={`mt-14 ${open && "mt-40"}`}>
+              <MovieList
+                listName="My List"
+                movies={favoriteMovies}
+                baseUrl={secureBaseUrl}
+                backdropSizes={backdropSizes}
+              />
+            </div>
+          )}
+          {popularMovies && popularMovies.length > 0 && (
+            <div className={`${favoriteMovies.length > 0 ? "" : `mt-14 ${open && "mt-40"}`} ${alreadySawTrailers.length === 0 && "mb-10"}`}>
+              <MovieList
+                listName="Popular on Movy"
+                movies={popularMovies}
+                baseUrl={secureBaseUrl}
+                backdropSizes={backdropSizes}
+              />
+            </div>
+          )}
+          {alreadySawTrailers && alreadySawTrailers.length > 0 && (
+            <div className="mb-10">
+              <MovieList
+                listName={`Continue Watching for ${user.name}`}
+                movies={alreadySawTrailers}
+                baseUrl={secureBaseUrl}
+                backdropSizes={backdropSizes}
+              />
+            </div>
+          )}
           <TrailerSection
             movie={randomMovieTrailer}
             serieBgImage={`${secureBaseUrl}${backdropSizes.at(-1)}${
               randomMovieTrailer.backdrop_path
             }`}
           />
-          <div className="mt-20">
-            <MovieList
-              listName="Most Viewed"
-              movies={movies}
-              baseUrl={secureBaseUrl}
-              backdropSizes={backdropSizes}
-            />
-          </div>
-          <div>
-            <MovieList
-              listName="Recommended movies"
-              movies={movies}
-              baseUrl={secureBaseUrl}
-              backdropSizes={backdropSizes}
-              selectedMovie={selectedMovie}
-              setSelectedMovie={setSelectedMovie}
-            />
-          </div>
+          {topRatedMovies && topRatedMovies.length > 0 && (
+            <div className="mt-20">
+              <MovieList
+                listName="Most Viewed"
+                movies={topRatedMovies}
+                baseUrl={secureBaseUrl}
+                backdropSizes={backdropSizes}
+              />
+            </div>
+          )}
+          {recommendedMovies && recommendedMovies.length > 0 && (
+            <div>
+              <MovieList
+                listName="Recommended movies"
+                movies={recommendedMovies}
+                baseUrl={secureBaseUrl}
+                backdropSizes={backdropSizes}
+                selectedMovie={selectedMovie}
+                setSelectedMovie={setSelectedMovie}
+              />
+            </div>
+          )}
           {selectedMovie && (
             <div className="mt-2">
               <RecommendedMovie
