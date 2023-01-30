@@ -11,6 +11,16 @@ export const typeDef = `
         TERROR
         COMEDY
         DRAMA
+        FANTASY
+        SCIFI
+        HISTORY
+        ROMANCE
+        MISTERY
+        HORROR
+        WAR
+        MUSICAL
+        SUPERHERO
+        ANIMATION
     }
 
     # Input definitions
@@ -20,7 +30,7 @@ export const typeDef = `
     }
 
     input VideoInput {
-        ize: Int!
+        size: Int!
         type: String!
         url: String!
     }
@@ -66,7 +76,7 @@ export const typeDef = `
     # Queries
 
     type Query {
-        getMovies: [Movie]!
+        getMovies: [Movie]
         getMovie(genre: GenreInput, title: String): Movie
         getGenres: [Genre]!
     }

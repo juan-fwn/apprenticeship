@@ -1,12 +1,19 @@
 export const typeDef = `
     # Input definitions
 
-    input UserInput {
+    input CreateUserInput {
         email: String!
         full_name: String!
         photo_path: String
-        password_salt: String!
-        password_hash: String!
+        password: String!
+        lists: [ListInput]
+    }
+
+    input UpdateUserInput {
+        email: String
+        full_name: String
+        photo_path: String
+        password: String!
         lists: [ListInput]
     }
 
@@ -25,17 +32,19 @@ export const typeDef = `
     # Queries
 
     type Query {
-        getUsers: [User]!
+        getUsers: [User]
+        getUser(id: ID!): User
     }
 
     # Mutations
 
     type Mutation {
         createUser(
-            user: UserInput
+            user: CreateUserInput
         ): User
         updateUser(
-            user: UserInput
+            id: ID!
+            user: UpdateUserInput
         ): User
         deleteUser(id: ID!): User
     }
