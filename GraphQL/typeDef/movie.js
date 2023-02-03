@@ -46,6 +46,11 @@ export const typeDef = `
         genre: [GenreInput]
     }
 
+    input PaginationInput {
+        limit: Int
+        offset: Int
+    }
+
     # Type definitions
     
     type Video {
@@ -76,7 +81,7 @@ export const typeDef = `
     # Queries
 
     type Query {
-        getMovies: [Movie]
+        getMovies(pagination: PaginationInput): [Movie]
         getMovie(genre: GenreInput, title: String): Movie
         getGenres: [Genre]!
     }

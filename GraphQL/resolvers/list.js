@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import List from "../models/list.js";
 import User from "../models/user.js";
 import Movie from "../models/movie.js";
+import { checkUserLogged } from "./user.js";
 
 const findDuplicateList = async (listName, userId) => {
   const lists = await List.find({
@@ -23,7 +24,9 @@ const replaceIdKey = (list) => {
 
 const resolvers = {
   Query: {
-    getLists: async () => {
+    getLists: async (root, args, context) => {
+      checkUserLogged(context);
+
       const lists = await List.find({});
 
       lists.forEach((list) => {
@@ -34,7 +37,9 @@ const resolvers = {
     },
   },
   Mutation: {
-    createList: async (root, args) => {
+    createList: async (root, args, context) => {
+      checkUserLogged(context);
+
       let user = null;
       let movies = [];
 
@@ -71,7 +76,9 @@ const resolvers = {
 
       return list;
     },
-    updateList: async (root, args) => {
+    updateList: async (root, args, context) => {
+      checkUserLogged(context);
+
       let list = await List.findOne({ _id: ObjectId(args.id) });
 
       if (!list) return null;
@@ -104,7 +111,9 @@ const resolvers = {
 
       return list;
     },
-    deleteList: async (root, args) => {
+    deleteList: async (root, args, context) => {
+      checkUserLogged(context);
+      
       let list = null;
 
       try {

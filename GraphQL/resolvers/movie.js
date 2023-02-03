@@ -1,6 +1,7 @@
 import pkg from "graphql-iso-date";
 const { GraphQLDateTime } = pkg;
 import { v1 as uuid } from "uuid";
+import { checkUserLogged } from "./user.js";
 
 import Movie from "../models/movie.js";
 
@@ -25,9 +26,21 @@ const genres = [
 const resolvers = {
   Date: GraphQLDateTime,
   Query: {
-    getGenres: () => genres,
-    getMovies: async () => Movie.find({}),
-    getMovie: async (root, args) => {
+    getGenres: (root, args, context) => {
+      checkUserLogged(context);
+
+      return genres;
+    },
+    getMovies: async (root, args, context) => {
+      checkUserLogged(context);
+
+      const { limit = 0, offset: skip = 0 } = args.pagination ?? {};
+
+      return Movie.find({}).skip(skip).limit(limit);
+    },
+    getMovie: async (root, args, context) => {
+      checkUserLogged(context);
+
       const { genre: { name: genre } = {}, title } = args;
 
       if (genre) {
@@ -40,7 +53,9 @@ const resolvers = {
     },
   },
   Mutation: {
-    createMovie: async (root, args) => {
+    createMovie: async (root, args, context) => {
+      checkUserLogged(context);
+
       const movie = new Movie({ title: args.title, ...args.movie });
 
       try {
@@ -51,7 +66,9 @@ const resolvers = {
 
       return movie;
     },
-    updateMovie: async (root, args) => {
+    updateMovie: async (root, args, context) => {
+      checkUserLogged(context);
+
       const movie = await Movie.findOne({ _id: args.id.toString() });
 
       if (!movie) return null;
@@ -82,7 +99,9 @@ const resolvers = {
 
       return movie;
     },
-    deleteMovie: async (root, args) => {
+    deleteMovie: async (root, args, context) => {
+      checkUserLogged(context);
+
       let movie = null;
 
       try {

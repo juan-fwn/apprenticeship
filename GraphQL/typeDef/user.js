@@ -47,5 +47,9 @@ export const typeDef = `
             user: UpdateUserInput
         ): User
         deleteUser(id: ID!): User
+        login(
+            email: String!
+            password: String!
+        ): String
     }
 `;
