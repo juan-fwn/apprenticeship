@@ -1,5 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import { makeExecutableSchema } from "@graphql-tools/schema";
+import { addMocksToSchema } from "@graphql-tools/mock";
 import "./db.js";
 import { typeDef as Movie } from "./typeDef/movie.js";
 import { typeDef as User } from "./typeDef/user.js";
@@ -19,7 +20,10 @@ const schema = makeExecutableSchema({
 });
 
 const server = new ApolloServer({
-  schema,
+  schema: addMocksToSchema({
+    schema,
+    preserveResolvers: true,
+  }),
   context: async ({ req }) => {
     const auth = req ? req.headers?.authorization : null;
 

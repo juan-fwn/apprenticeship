@@ -8,18 +8,22 @@ import { checkUserLogged } from "./user.js";
 const findDuplicateList = async (listName, userId) => {
   const lists = await List.find({
     name: listName,
-    "user._id": ObjectId(userId),
+    "user": ObjectId(userId),
   });
 
   return lists.length > 0;
 };
 
-const replaceIdKey = (list) => {
-  delete Object.assign(list.user, { ["id"]: list["user"]["_id"] })["_id"];
+export const getUserData = async (userId) => {
+  const user = await User.findOne({ _id: ObjectId(userId) });
 
-  list.movies.forEach((movie) => {
-    delete Object.assign(movie, { ["id"]: movie["_id"] })["_id"];
-  });
+  return user;
+};
+
+export const getMoviesData = async (moviesIds) => {
+  const movies = await Movie.find({ _id: { $in: moviesIds } });
+
+  return movies;
 };
 
 const resolvers = {
@@ -27,11 +31,15 @@ const resolvers = {
     getLists: async (root, args, context) => {
       checkUserLogged(context);
 
-      const lists = await List.find({});
+      const lists = await List.find();
 
-      lists.forEach((list) => {
-        replaceIdKey(list);
-      });
+      for (const list of lists) {
+        const user = await getUserData(list.user);
+        const movies = await getMoviesData(list.movies);
+
+        list["user"] = user;
+        list["movies"] = movies;
+      }
 
       return lists;
     },
@@ -48,6 +56,7 @@ const resolvers = {
           args.name,
           args.user.toString()
         );
+
         if (duplicateList) {
           throw new GraphQLError("Duplicate List Name", {
             extensions: {
@@ -55,10 +64,10 @@ const resolvers = {
             },
           });
         }
-        user = (await User.findOne({ _id: ObjectId(args.user) })) ?? null;
+        user = await User.findOne({ _id: ObjectId(args.user) });
       }
       if (args.movies) {
-        movies = (await Movie.find({ _id: { $in: args.movies } })) ?? null;
+        movies = await Movie.find({ _id: { $in: args.movies } });
       }
 
       const list = new List({
@@ -85,14 +94,12 @@ const resolvers = {
 
       for (const [key, value] of Object.entries(args.list)) {
         if (key === "user") {
-          list["user"] =
-            (await User.findOne({ _id: ObjectId(args.list.user) })) ?? null;
+          list["user"] = await User.findOne({ _id: ObjectId(args.list.user) });
         } else if (key === "movies") {
           const movies = [];
 
           for (const movieId of value) {
-            const movie =
-              (await Movie.findOne({ _id: ObjectId(movieId) })) ?? null;
+            const movie = await Movie.findOne({ _id: ObjectId(movieId) });
 
             if (movie) movies.push(movie);
           }
@@ -113,13 +120,27 @@ const resolvers = {
     },
     deleteList: async (root, args, context) => {
       checkUserLogged(context);
-      
+
       let list = null;
 
       try {
-        list = await List.findOneAndDelete({ _id: ObjectId(args.id) });
+        list = await List.findOne({ _id: ObjectId(args.id) });
 
-        replaceIdKey(list);
+        if (!list) {
+          throw new GraphQLError("List not found", {
+            extensions: {
+              code: "LIST_NOT_FOUND",
+            },
+          });
+        }
+
+        const user = await getUserData(list.user);
+        const movies = await getMoviesData(list.movies);
+
+        list["user"] = user;
+        list["movies"] = movies;
+
+        await List.deleteOne({ _id: ObjectId(args.id) });
       } catch (error) {
         return error;
       }

@@ -1,6 +1,8 @@
 import { GraphQLError } from "graphql";
+import { getUserData, getMoviesData } from "./list.js";
 import crypto from "crypto";
 import User from "../models/user.js";
+import List from "../models/list.js";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -23,12 +25,43 @@ export const checkUserLogged = (context) => {
     });
 };
 
+const getListsData = async (listIds) => {
+  const lists = await List.find({ _id: { $in: listIds } });
+
+  for (const list of lists) {
+    const user = await getUserData(list.user);
+    const movies = await getMoviesData(list.movies);
+
+    list["user"] = user;
+    list["movies"] = movies;
+  }
+
+  return lists;
+};
+
+const findDuplicateUser = async (email) => {
+  const user = User.findOne({ email });
+
+  return Boolean(user);
+};
+
 const resolvers = {
   Query: {
     getUsers: async (root, args, context) => {
-      checkUserLogged(context);
+      const users = await User.find();
 
-      return User.find({});
+      if (!users) {
+        return [];
+      }
+
+      for (const user of users) {
+        if (!user.lists) continue;
+
+        const lists = await getListsData(user.lists);
+        user["lists"] = lists;
+      }
+
+      return users;
     },
     getUser: async (root, args, context) => {
       checkUserLogged(context);
@@ -42,14 +75,24 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (root, args, context) => {
-      checkUserLogged(context);
-
       const password_salt = crypto.randomBytes(16).toString("hex");
       const password_hash = crypto
         .pbkdf2Sync(args.user.password, password_salt, 1000, 64, `sha512`)
         .toString(`hex`);
 
-      const user = new User({ ...args.user, password_salt, password_hash });
+      if (findDuplicateUser(args.user.email)) {
+        throw new GraphQLError("Email already exists", {
+          extensions: {
+            code: "DUPLICATE_EMAIL",
+          },
+        });
+      }
+
+      const user = new User({
+        ...args.user,
+        password_salt,
+        password_hash,
+      });
 
       try {
         await user.save();
@@ -80,7 +123,13 @@ const resolvers = {
         });
 
       for (const [key, value] of Object.entries(args.user)) {
-        user[key] = value;
+        if (key === "lists") {
+          const lists = await getListsData(args.user.lists);
+
+          user["lists"] = lists;
+        } else {
+          user[key] = value;
+        }
       }
 
       try {
@@ -97,14 +146,13 @@ const resolvers = {
       let user = null;
 
       try {
-        user = await User.findOneAndDelete({ _id: args.id.toString() });
+        return await User.findOneAndDelete({ _id: args.id.toString() });
       } catch (error) {
         return error;
       }
-
-      return user;
     },
     login: async (root, args) => {
+      console.log(args);
       let user = await User.findOne({ email: args.email });
 
       if (!user)

@@ -6,7 +6,6 @@ export const typeDef = `
         full_name: String!
         photo_path: String
         password: String!
-        lists: [ListInput]
     }
 
     input UpdateUserInput {
@@ -14,7 +13,7 @@ export const typeDef = `
         full_name: String
         photo_path: String
         password: String!
-        lists: [ListInput]
+        lists: [ID]
     }
 
     # Type definitions

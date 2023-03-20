@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 
-const schema = new mongoose.Schema({
+export const schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -12,11 +12,13 @@ const schema = new mongoose.Schema({
   public: {
     type: Boolean,
   },
-  movies: {
-    type: Object,
-  },
+  movies: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
   user: {
-    type: Object,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
 });
 

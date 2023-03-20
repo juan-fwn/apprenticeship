@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 
-const schema = new mongoose.Schema({
+export const schema = new mongoose.Schema({
   title: {
     type: String,
     required: true,

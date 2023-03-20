@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 
-const schema = new mongoose.Schema({
+export const schema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -24,9 +24,10 @@ const schema = new mongoose.Schema({
     type: String,
     minLength: 7,
   },
-  lists: {
-    type: Object,
-  },
+  lists: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'List',
+  }],
 });
 
 schema.plugin(uniqueValidator);

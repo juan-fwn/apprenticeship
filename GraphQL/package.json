@@ -6,12 +6,15 @@
   "type": "module",
   "scripts": {
     "start": "npx nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@graphql-tools/mock": "^8.7.17",
+    "@graphql-tools/schema": "^9.0.15",
+    "@types/jest": "^29.5.0",
     "apollo-server": "^3.10.2",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
@@ -21,5 +24,8 @@
     "mongoose": "6.7.5",
     "mongoose-unique-validator": "3.1.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.4.2"
   }
 }

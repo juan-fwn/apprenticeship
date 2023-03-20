@@ -36,15 +36,16 @@ const resolvers = {
 
       const { limit = 0, offset: skip = 0 } = args.pagination ?? {};
 
-      return Movie.find({}).skip(skip).limit(limit);
+      return Movie.find().skip(skip).limit(limit);
     },
     getMovie: async (root, args, context) => {
       checkUserLogged(context);
 
-      const { genre: { name: genre } = {}, title } = args;
+      const { genre = {}, title } = args;
+      const { name: genreName } = genre;
 
       if (genre) {
-        return Movie.findOne({ genre });
+        return Movie.findOne({ genre: genreName });
       } else if (title) {
         return Movie.findOne({ title });
       } else {
