@@ -1,0 +1,61 @@
+// Type definitions
+
+type User {
+    id: ID!
+    email: String!
+    full_name: String!
+    photo_path: String!
+    password_salt: String!
+    password_hash: String!
+    lists: [List]!
+}
+
+type List {
+    name: String!
+    description: String!
+    public: Boolean!
+    movies: [Movie]!
+}
+
+type Movie {
+    id: ID!
+    title: String!
+    tagline: String!
+    overview: String!
+    release_date: Date!
+    poster_url: String!
+    backdrop_url: String!
+    imdb_id: String!
+    video: Video!
+    genre: Genre!
+}
+
+type Video {
+    size: Int!
+    type: String!
+    url: String!
+}
+
+type Genre {
+    name: String!
+}
+
+// Queries
+
+type Query {
+    getMovies: [Movie]!
+    getMovie(genre: Genre, name: String): Movie
+    getUsers: [User]!
+    getGenres: [Genre]!
+}
+
+// Mutations
+
+type Mutation {
+    createMovie(title: String!, tagline: String!, overview: String!, release_date: Date!, poster_url: String!, backdrop_url: String! ,imdb_id: String!, video: Video!, genre: Genre!): Movie
+    updateMovie(id: ID!, title: String!, tagline: String!, overview: String!, release_date: Date!, poster_url: String!, backdrop_url: String! ,imdb_id: String!, video: Video!, genre: Genre!): Movie
+    deleteMovie(id: ID!): Movie
+    createUser(email: String!, full_name: String!, photo_path: String!, password_salt: String!, password_hash: String!, lists: [List]!): User
+    updateUser(id: ID!, email: String!, full_name: String!, photo_path: String!, password_salt: String!, password_hash: String!, lists: [List]!): User
+    deleteUser(id: ID!): User
+}
