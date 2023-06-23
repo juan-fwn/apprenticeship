@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_MULTIPLE_DATABASES: ${DATABASE}_development, ${DATABASE}_test
+    volumes:
+      - ./database/pg-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - ${DATABASE_PORT_EXTERNAL}:${DATABASE_PORT}
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile.local
+    volumes:
+      - $PWD:/app/
+      - $PWD/node_modules:/app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - "DATABASE_PORT=${DATABASE_PORT}"
+    depends_on:
+      - db

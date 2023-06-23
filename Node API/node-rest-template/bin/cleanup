@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "Files to be deleted:"
+find ./database -name '*.sample*'
+find ./src -name '*.sample*'
+find ./test -name '*.sample*'
+find ./src/web/docs.sample -name '*.yaml'
+find . -name 'API.sample.md'
+
+echo ""
+echo "New src/web/index.js preview:"
+echo "----------------"
+sed "/\/\/ bin\/cleanup mark/d" src/web/index.js
+echo "----------------"
+echo ""
+echo "Lines to be removed from src/index.js:"
+echo "----------------"
+cat src/index.js | grep "// bin/cleanup mark"
+echo "----------------"
+while true; do
+  read -p "Are you sure you want to delete/update the files as listed above? (y/n)" yn
+  case $yn in
+      [Yy] )
+        echo "Deleting files..."
+        find ./database -name '*.sample*' -exec rm -rf {} +
+        find ./src -name '*.sample*' -exec rm -rf {} +
+        find ./test -name '*.sample*' -exec rm -rf {} +
+        find ./src/web/docs.sample -name '*.yaml' -exec rm -rf {} +
+        find . -name 'API.sample.md' -exec rm -rf {} +
+
+        echo "Updating src/web/index.js..."
+        sed -i "" "/\/\/ bin\/cleanup mark/d" src/web/index.js
+        echo "Updating src/index.js..."
+        sed -i "" "/\/\/ bin\/cleanup mark/d" src/index.js
+        echo "Cleanup completed"
+        break;;
+      [Nn] )
+        exit;;
+      * ) echo "Please answer yes or no (y/n)";;
+  esac
+done

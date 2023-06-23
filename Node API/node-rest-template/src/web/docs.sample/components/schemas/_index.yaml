@@ -1,0 +1,10 @@
+Category:
+  $ref: './Category.yaml'
+Genre:
+  $ref: './Genre.yaml'
+Thing:
+  $ref: './Thing.yaml'
+SerializedThing:
+  $ref: './SerializedThing.yaml'
+SerializedCategory:
+  $ref: './SerializedCategory.yaml'

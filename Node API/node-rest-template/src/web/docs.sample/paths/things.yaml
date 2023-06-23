@@ -1,0 +1,88 @@
+get:
+  summary: Returns things, filterable by ID with the `ids` query parameter.
+  tags:
+    - things
+  parameters:
+    - in: query
+      name: ids[]
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+      summary: The IDs of things to return
+    - in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+        format: int64
+      summary: The page of paginated things to return
+    - in: query
+      name: pageSize
+      required: false
+      schema:
+        type: integer
+        format: int64
+      summary: The page size of paginated things to return
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            $ref: '../components/responses/getThings.yaml'
+post:
+  summary: Creates a new thing.
+  tags:
+    - things
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            thing:
+              type: object
+              properties:
+                name:
+                  type: string
+                category_id:
+                  type: integer
+                  format: int64
+              required:
+                - name
+                - category_id
+          example:
+            thing:
+              name: Thing name
+              category_id: 1
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '../components/responses/postThing.yaml'
+    400:
+      description: Bad Request
+    404:
+      description: Category Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  categoryId:
+                    type: integer
+                    format: int64
+                  details:
+                    type: string
+            example:
+              error:
+                categoryId: 5
+                details: No category was found with the given id
