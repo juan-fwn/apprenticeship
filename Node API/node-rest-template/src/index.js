@@ -17,7 +17,6 @@ const app = initializeApp({
   errorCodeToStatusMap,
   knexfile,
   passportStrategies,
-  swaggerRoute: '/swagger', // bin/cleanup mark
 });
 
 app.listen(constants.PORT);

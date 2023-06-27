@@ -1,4 +1,0 @@
-getThings:
-  $ref: './getThings.yaml'
-postThings:
-  $ref: './postThing.yaml'

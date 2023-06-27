@@ -1,7 +1,7 @@
 const Router = require('@koa/router');
 
 const requestLoggerMiddleware = require('../middlewares/requestLoggerMiddleware');
-const genresRouter = require('./genres.router'); // bin/cleanup mark
+const genresRouter = require('./genres.router');
 
 const apiRouter = new Router({ prefix: '/api' });
 

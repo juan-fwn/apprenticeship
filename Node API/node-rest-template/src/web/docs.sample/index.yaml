@@ -1,2 +1,0 @@
-/api/things:
-  $ref: './paths/things.yaml'

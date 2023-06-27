@@ -10,21 +10,7 @@ const genresIndexSerializer = new GenreSerializer();
 
 router.get(
   '/',
-  withResponseMiddleware(
-    genresIndexSerializer,
-    (ctx) => genresLib.all({ pageConfig: ctx.state.pageConfig, ids: ctx.query.ids }),
-    {
-      paged: true,
-      defaultPageSize: 20,
-    },
-  ),
-);
-
-const genresShowSerializer = new GenreSerializer();
-
-router.post(
-  '/',
-  withResponseMiddleware(genresShowSerializer, (ctx) => genresLib.create(ctx.request.body)),
+  withResponseMiddleware(genresIndexSerializer, () => genresLib.all()),
 );
 
 module.exports = router;
