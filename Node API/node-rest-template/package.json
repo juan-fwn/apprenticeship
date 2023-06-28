@@ -1,0 +1,63 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "Node Rest API template for onboardings or new projects",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --inspect src | pino-pretty",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test yarn migrate:latest && jest --runInBand --config=jest.config.js",
+    "check-staged": "lint-staged",
+    "migrate:latest": "node ./database/migrateLatest.js",
+    "migrate:rollback": "node ./database/migrateRollback.js",
+    "migrate:up": "node ./database/migrateUp.js",
+    "migrate:down": "node ./database/migrateDown.js",
+    "migrate:list": "npx knex migrate:list",
+    "recreateViews": "node ./database/recreateViews.js",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "@koa/router": "^10.1.1",
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.0",
+    "dotenv": "^16.0.0",
+    "joi": "^17.6.0",
+    "knex": "^1.0.7",
+    "knex-cleaner": "^1.3.1",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-passport": "^4.1.4",
+    "koa-qs": "^3.0.0",
+    "koa2-swagger-ui": "^5.6.0",
+    "objection": "^3.0.1",
+    "pg": "^8.7.3",
+    "pino": "^7.9.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "hygen": "^6.2.7",
+    "inflection": "^1.12.0",
+    "jest": "^26.0.0",
+    "lint-staged": "^11.0.0",
+    "nock": "^13.2.8",
+    "nodemon": "^2.0.15",
+    "pino-pretty": "^7.5.4",
+    "prettier": "^2.6.2",
+    "qs": "^6.10.3",
+    "supertest": "^6.2.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
+  }
+}
